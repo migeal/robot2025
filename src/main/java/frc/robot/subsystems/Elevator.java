@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.RelativeEncoder;
 
 import frc.robot.Constants.motorConstants;
@@ -12,7 +13,10 @@ import frc.robot.Constants.motorConstants;
 
 public class Elevator extends SubsystemBase {
    private final SparkMax m_liftMotor = new SparkMax(motorConstants.Emotor, MotorType.kBrushless);
-    //Encoder Flor = new Encoder(0,1, false, Encoder.CANcoder.k2x );
+   SparkClosedLoopController level = m_liftMotor.getClosedLoopController();
+   double start = m_liftMotor.getEncoder().getPosition();
+    
+   //Encoder Flor = new Encoder(0,1, false, Encoder.CANcoder.k2x );
     public Elevator(){}
 
      //normal up/down for custom hights
@@ -31,7 +35,7 @@ public class Elevator extends SubsystemBase {
   
    public void Hight(double level){
     //double start =  Flor.getPosition();
-    double start = 1;
+   // double start = 1;
     double go = level - start;
     if (go>0){
       
