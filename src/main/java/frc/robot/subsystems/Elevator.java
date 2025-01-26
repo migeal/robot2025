@@ -14,7 +14,7 @@ import frc.robot.Constants.motorConstants;
 public class Elevator extends SubsystemBase {
    private final SparkMax m_liftMotor = new SparkMax(motorConstants.Emotor, MotorType.kBrushless);
    SparkClosedLoopController level = m_liftMotor.getClosedLoopController();
-   double start = m_liftMotor.getEncoder().getPosition();
+   
     
    //Encoder Flor = new Encoder(0,1, false, Encoder.CANcoder.k2x );
     public Elevator(){}
@@ -22,26 +22,33 @@ public class Elevator extends SubsystemBase {
      //normal up/down for custom hights
      
     public void up(){ 
-     
-
        m_liftMotor.set(0.5);
-
     }
-
     public void down(){
     m_liftMotor.set(-0.5);
     }
-    // set elevator to called location
-  
+    // set elevator to called location, plan to call it directly from RobotContainer
    public void Hight(double level){
     //double start =  Flor.getPosition();
    // double start = 1;
+   double start = m_liftMotor.getEncoder().getPosition();
     double go = level - start;
-    if (go>0){
-      
+     while(!(go<0.5)&&!(go>-0.5)){
+    start = m_liftMotor.getEncoder().getPosition();
+     go = level - start;
+    if (go>0.5){
+    up();
+    }
+    else if(go<-0.5){
+      down();
+    }
+    else{
+      stop();
+      break;
+    }
     }
    }
-   //@Override
+   
    public void stop(){
     m_liftMotor.set(0);
     
