@@ -13,7 +13,7 @@ import frc.robot.Constants.motorConstants;
 
 public class Elevator extends SubsystemBase {
    private final SparkMax m_liftMotor = new SparkMax(motorConstants.Emotor, MotorType.kBrushless);
-   SparkClosedLoopController level = m_liftMotor.getClosedLoopController();
+   SparkClosedLoopController area = m_liftMotor.getClosedLoopController();
    
     
    //Encoder Flor = new Encoder(0,1, false, Encoder.CANcoder.k2x );
