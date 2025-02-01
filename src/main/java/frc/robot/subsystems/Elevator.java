@@ -22,10 +22,20 @@ public class Elevator extends SubsystemBase {
      //normal up/down for custom hights
      
     public void up(){ 
+      if(m_liftMotor.getEncoder().getPosition() < 10){
        m_liftMotor.set(0.5);
+      }
+      else{
+        stop();
+      }
     }
     public void down(){
+      if(m_liftMotor.getEncoder().getPosition() > 0){
     m_liftMotor.set(-0.5);
+    }
+    else{
+      stop();
+    }
     }
     // set elevator to called location, plan to call it directly from RobotContainer
    public void Hight(double level){

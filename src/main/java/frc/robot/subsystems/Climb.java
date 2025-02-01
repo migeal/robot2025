@@ -6,37 +6,45 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.RelativeEncoder;
-
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkClosedLoopController;
 
 import frc.robot.Constants.motorConstants;
 
 
 public class Climb extends SubsystemBase {
-  public Climb(){}
-  
-   private SparkMax leftClimb = new SparkMax(motorConstants.CmotorL, MotorType.kBrushless);
+  private SparkMax leftClimb = new SparkMax(motorConstants.CmotorL, MotorType.kBrushless);
    private SparkMax rightClimb = new SparkMax(motorConstants.CmotorR, MotorType.kBrushless);
-   private DoubleSolenoid accendFR = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
-   private DoubleSolenoid accendFL = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
-   private DoubleSolenoid accendBR = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 4, 5);
-   private DoubleSolenoid accendBL = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 6, 7);
-   //rightClimb.setInverted(true);
-   // private Encoder CLE = new Encoder(0,1,false,Encoder.RelativeEncoder.k2X);
-  public void Accend(){
-    accendFR.toggle();
-    accendFL.toggle();
-    accendBR.toggle();
-    accendBL.toggle();
-   }
-  public void climb(){
-   leftClimb.set(0.5);
-   rightClimb.set(0.5);
+  
+   private SparkClosedLoopController Left = leftClimb.getClosedLoopController();
+   private SparkClosedLoopController right = rightClimb.getClosedLoopController();
+   SparkMaxConfig setC = new SparkMaxConfig();
+  public Climb(){
+    setC.inverted(true).idleMode(IdleMode.kBrake);
+    rightClimb.configure(setC, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
+  
+   
+       
+   // private Encoder CLE = new Encoder(0,1,false,Encoder.RelativeEncoder.k2X);
+  
+  public void climb(){
+    Left.setReference(1, ControlType.kPosition);
+    right.setReference(1, ControlType.kPosition);
+   //leftClimb.set(0.5);
+   //rightClimb.set(0.5);
+  
+  }
+  //turn up speed for the final product
   public void LetGo(){
-    leftClimb.set(-0.5);
-    rightClimb.set(-0.5);
+    leftClimb.set(-0.3);
+    rightClimb.set(-0.3);
   }
   //@Override
   public void stop(){
