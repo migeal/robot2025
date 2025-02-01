@@ -43,6 +43,7 @@ public class Climb extends SubsystemBase {
   }
   //turn up speed for the final product
   public void LetGo(){
+    if (!((leftClimb.getEncoder().getPosition()<=0)||(rightClimb.getEncoder().getPosition()<=0)))
     leftClimb.set(-0.3);
     rightClimb.set(-0.3);
   }
