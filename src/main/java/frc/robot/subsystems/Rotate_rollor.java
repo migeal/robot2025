@@ -1,26 +1,28 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.Spark.SparkClossLoopControler;
+import com.revrobotics.spark.SparkClosedLoopController;
+
+import edu.wpi.first.wpilibj.drive.RobotDriveBase.MotorType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.motorConstants;  
-import com.revrobotics.Spark.SparkMax;
+import edu.wpi.first.wpilibj.motorcontrol.Victor;
 import com.revrobotics.RelativeEncoder;
 
-public class Rotate_roller extends SubsystemBase {
- Public rotate(){} 
-    private spark intake_rotate =new SparkMax(motorConstants.InmotorR,MotorType.kBrushed);
+public class Rotate_rollor extends SubsystemBase {
+ public Rotate_rollor(){} 
+    private Victor intake_rotate =new Victor(motorConstants.InmotorR);
 
-public void Rotate_up()
-    intae_rotate.set(1)
+public void Rotate_up(){
+    intake_rotate.set(1);
 }
-@Override
+
 public void stay(){
-    intake_rotate.set(0)
+    intake_rotate.set(0);
 }
 public void rotate_down(){
-    intake_rotate.set(-1)
+    intake_rotate.set(-1);
 }
 @Override
    public void periodic() {

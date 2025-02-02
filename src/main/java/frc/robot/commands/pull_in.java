@@ -1,15 +1,22 @@
 package frc.robot.commands;
 
-import frc.robot.subsystems.Roller;
+import frc.robot.subsystems.Rollor;
+
+import java.lang.reflect.Parameter;
+
 import edu.wpi.first.wpilibj2.command.Command;
 public class pull_in extends Command {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
-private final Roller m_roller;
-
-public pull_in(Roller m_roller){
-m_roller = Roller;
-addRequirements(Roller);
+private final Rollor m_rollor;
+/**
+   * Creates a new ExampleCommand.
+   *
+   * @param Rollor The subsystem used by this command.
+   */
+public pull_in(Rollor Rollor){
+m_rollor = Rollor;
+addRequirements(Rollor);
 }
 
   // Called when the command is initially scheduled.
@@ -19,13 +26,13 @@ addRequirements(Roller);
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_roller.grab();
+    m_rollor.grab();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_roller.hold();
+    m_rollor.hold();
   }
 
   // Returns true when the command should end.

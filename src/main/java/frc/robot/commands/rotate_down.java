@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import frc.robot.subsystems.Rotate_roller;
+import frc.robot.subsystems.Rotate_rollor;
 import edu.wpi.first.wpilibj2.command.Command;
 
 
@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 
    
       
-public class rotate_down extends command{
-    private final Rotate_roller m_rotate;
-    public pull_in(Rotate_roller m_rotate){
-    m_rotate = Rotate_roller;
-    addRequirements(Rotate_roller);
+public class rotate_down extends Command{
+    private final Rotate_rollor m_rotate;
+    public rotate_down(Rotate_rollor Rotate_rollor){
+    m_rotate = Rotate_rollor;
+    addRequirements(Rotate_rollor);
     }
     
       // Called when the command is initially scheduled.
@@ -28,7 +28,7 @@ public class rotate_down extends command{
       // Called once the command ends or is interrupted.
       @Override
       public void end(boolean interrupted) {
-        m_roller.stay();
+        m_rotate.stay();
       }
     
       // Returns true when the command should end.
