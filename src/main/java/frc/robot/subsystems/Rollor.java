@@ -8,7 +8,7 @@ import com.revrobotics.RelativeEncoder;
 
 public class Roller extends SubsystemBase {
 public Roller(){}
-private spark intake = new Spark(motorConstants.InmotorL);
+private spark intake = new SparkMax(motorConstants.InmotorL,MotorType.kBrushed);
 
 
 //grabing the algee and coral 

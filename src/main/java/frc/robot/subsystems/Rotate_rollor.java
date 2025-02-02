@@ -1,6 +1,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.Spark.SparkClossLoopControler;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.motorConstants;  
@@ -9,10 +10,10 @@ import com.revrobotics.RelativeEncoder;
 
 public class Rotate_roller extends SubsystemBase {
  Public rotate(){} 
-    private spark intake_rotate =new Spark(motorConstants.InmotorR);
+    private spark intake_rotate =new SparkMax(motorConstants.InmotorR,MotorType.kBrushed);
 
-public void Rotate_up(){
-    intake_rotate.set(1)
+public void Rotate_up()
+    intae_rotate.set(1)
 }
 @Override
 public void stay(){
