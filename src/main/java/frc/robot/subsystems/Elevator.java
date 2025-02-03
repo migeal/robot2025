@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
+import edu.wpi.first.wpilibj.motorcontrol.Victor;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -12,7 +14,7 @@ import frc.robot.Constants.motorConstants;
 
 
 public class Elevator extends SubsystemBase {
-   private final SparkMax m_liftMotor = new SparkMax(motorConstants.Emotor, MotorType.kBrushless);
+   private final PWMVictorSPX m_liftMotor = new PWMVictorSPX(motorConstants.Emotor);
    SparkClosedLoopController area = m_liftMotor.getClosedLoopController();
    
     

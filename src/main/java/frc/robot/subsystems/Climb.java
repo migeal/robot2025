@@ -19,8 +19,8 @@ import frc.robot.Constants.motorConstants;
 
 
 public class Climb extends SubsystemBase {
-  private SparkMax leftClimb = new SparkMax(motorConstants.CmotorL, MotorType.kBrushless);
-   private SparkMax rightClimb = new SparkMax(motorConstants.CmotorR, MotorType.kBrushless);
+  private SparkMax leftClimb = new SparkMax(motorConstants.CmotorL, MotorType.kBrushed);
+   private SparkMax rightClimb = new SparkMax(motorConstants.CmotorR, MotorType.kBrushed);
   
    private SparkClosedLoopController Left = leftClimb.getClosedLoopController();
    private SparkClosedLoopController right = rightClimb.getClosedLoopController();

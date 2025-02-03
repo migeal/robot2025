@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 //commands
 import frc.robot.commands.EUp;
@@ -45,7 +46,7 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
-
+   
   
   // subsystem
   private final DriveTrain m_robotDrive = new DriveTrain();
@@ -55,6 +56,7 @@ public class RobotContainer {
   // joystick 
   private final CommandJoystick m_StickOfHope = new CommandJoystick(0);
   private final Joystick m_ButtonBoard = new Joystick(1);
+  private final XboxController m_gamerTime = new XboxController(0);
   //commands
   private final EUp m_EUp = new EUp(m_Elevator);
   private final EDown m_EDown = new EDown(m_Elevator);
