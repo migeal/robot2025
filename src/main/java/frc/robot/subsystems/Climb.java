@@ -1,9 +1,11 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Counter;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
@@ -13,21 +15,21 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkBase;
+
 import com.revrobotics.spark.SparkClosedLoopController;
 
 import frc.robot.Constants.motorConstants;
 
 
 public class Climb extends SubsystemBase {
-  private SparkMax leftClimb = new SparkMax(motorConstants.CmotorL, MotorType.kBrushed);
-   private SparkMax rightClimb = new SparkMax(motorConstants.CmotorR, MotorType.kBrushed);
+  private PWMVictorSPX leftClimb = new PWMVictorSPX(motorConstants.CmotorL);
+   private PWMVictorSPX rightClimb = new PWMVictorSPX(motorConstants.CmotorR);
   
-   private SparkClosedLoopController Left = leftClimb.getClosedLoopController();
-   private SparkClosedLoopController right = rightClimb.getClosedLoopController();
-   SparkMaxConfig setC = new SparkMaxConfig();
+   Counter RightTilt = new Counter(3);
+   Counter LeftTilt = new Counter(4);
   public Climb(){
-    setC.inverted(true).idleMode(IdleMode.kBrake);
-    rightClimb.configure(setC, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    rightClimb.setInverted(true);
+   
   }
   
    
@@ -35,17 +37,23 @@ public class Climb extends SubsystemBase {
    // private Encoder CLE = new Encoder(0,1,false,Encoder.RelativeEncoder.k2X);
   
   public void climb(){
-    Left.setReference(1, ControlType.kPosition);
-    right.setReference(1, ControlType.kPosition);
-   //leftClimb.set(0.5);
-   //rightClimb.set(0.5);
-  
+    if((RightTilt.getPeriod()<200)&&(LeftTilt.getPeriod()<200)){
+   leftClimb.set(0.5);
+   rightClimb.set(0.5);
+  }
+  else{
+    stop();
+  }
   }
   //turn up speed for the final product
   public void LetGo(){
-    if (!((leftClimb.getEncoder().getPosition()<=0)||(rightClimb.getEncoder().getPosition()<=0)))
+    if (!((LeftTilt.getPeriod()<=0)||(RightTilt.getPeriod()<=0))){
     leftClimb.set(-0.3);
     rightClimb.set(-0.3);
+    }
+  else{
+    stop();
+  }
   }
   //@Override
   public void stop(){
