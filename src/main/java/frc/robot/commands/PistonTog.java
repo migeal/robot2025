@@ -4,41 +4,38 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.climbPistons;
 import edu.wpi.first.wpilibj2.command.Command;
 
-
 /** An example command that uses an example subsystem. */
-public class EUp extends Command {
+public class PistonTog extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Elevator m_elevator;
+  private final climbPistons m_climbPistons;
 
   /**
    * Creates a new ExampleCommand.
    *
-   * @param Elevator The subsystem used by this command.
+   * @param climbPistons The subsystem used by this command.
    */
-  public EUp(Elevator Elevator) {
-    m_elevator = Elevator;
+  public PistonTog(climbPistons climbPistons) {
+    m_climbPistons = climbPistons;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Elevator);
+    addRequirements(climbPistons);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_climbPistons.Accend();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_elevator.up();
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_elevator.stop();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

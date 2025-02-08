@@ -1,29 +1,59 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Counter;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkBase;
+
+import com.revrobotics.spark.SparkClosedLoopController;
 
 import frc.robot.Constants.motorConstants;
 
 
 public class Climb extends SubsystemBase {
-  public Climb(){}
+  private PWMVictorSPX leftClimb = new PWMVictorSPX(motorConstants.CmotorL);
+   private PWMVictorSPX rightClimb = new PWMVictorSPX(motorConstants.CmotorR);
   
-   private SparkMax leftClimb = new SparkMax(motorConstants.CmotorL, MotorType.kBrushless);
-   private SparkMax rightClimb = new SparkMax(motorConstants.CmotorR, MotorType.kBrushless);
-   //rightClimb.setInverted(true);
+   Counter RightTilt = new Counter(3);
+   Counter LeftTilt = new Counter(4);
+  public Climb(){
+    rightClimb.setInverted(true);
+   
+  }
+  
+   
+       
    // private Encoder CLE = new Encoder(0,1,false,Encoder.RelativeEncoder.k2X);
+  
   public void climb(){
+    if((RightTilt.getPeriod()<200)&&(LeftTilt.getPeriod()<200)){
    leftClimb.set(0.5);
    rightClimb.set(0.5);
   }
+  else{
+    stop();
+  }
+  }
+  //turn up speed for the final product
   public void LetGo(){
-    leftClimb.set(-0.5);
-    rightClimb.set(-0.5);
+    if (!((LeftTilt.getPeriod()<=0)||(RightTilt.getPeriod()<=0))){
+    leftClimb.set(-0.3);
+    rightClimb.set(-0.3);
+    }
+  else{
+    stop();
+  }
   }
   //@Override
   public void stop(){

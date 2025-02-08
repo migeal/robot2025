@@ -4,16 +4,43 @@
 
 package frc.robot;
 
+import javax.print.attribute.standard.MediaSize.NA;
+
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj.Joystick;
+
+//commands
+import frc.robot.commands.EUp;
+import frc.robot.commands.EDown;
+import frc.robot.commands.Clamp;
+import frc.robot.commands.letGo;
+import frc.robot.commands.PistonTog;
+import frc.robot.commands.push_out;
+import frc.robot.commands.pull_in;
+import frc.robot.commands.rotate_down;
+import frc.robot.commands.rotate_up;
+
+
+//subsystems
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Climb;
+import frc.robot.subsystems.climbPistons;
+import frc.robot.subsystems.Rotate_rollor;
+import frc.robot.subsystems.Rollor;
+
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.motorConstants;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
 /**
@@ -25,19 +52,49 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
+  
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
-
+   
   
   // subsystem
+  
   private final DriveTrain m_robotDrive = new DriveTrain();
+  private final Elevator m_Elevator = new Elevator();
+  private final Climb m_climb = new Climb();
+  private final climbPistons m_CP = new climbPistons();
+  private final Rollor m_Rollor = new Rollor();
+  private final Rotate_rollor m_Rotate_rollor = new Rotate_rollor();
   // joystick 
+  private final XboxController m_Controly = new XboxController(0);
   private final CommandJoystick m_StickOfHope = new CommandJoystick(0);
+  private final Joystick m_ButtonBoard = new Joystick(1);
+  private final XboxController m_gamerTime = new XboxController(0);
+  //commands
+  private final EUp m_EUp = new EUp(m_Elevator);
+  private final EDown m_EDown = new EDown(m_Elevator);
+  private final Clamp m_Clamp = new Clamp(m_climb);
+  private final letGo m_LetGo = new letGo(m_climb);
+  private final PistonTog m_PTog = new PistonTog(m_CP);
+  private final rotate_up m_rotate_up = new rotate_up(m_Rotate_rollor);
+  private final rotate_down m_rotate_down = new rotate_down(m_Rotate_rollor);
+private final push_out m_push_out =new push_out(m_Rollor);
+private final pull_in m_pull_in = new pull_in(m_Rollor);
+  //buttons
+   private JoystickButton lock = new JoystickButton(m_ButtonBoard, 8);
+   private JoystickButton unlock = new JoystickButton(m_ButtonBoard, 9);
+   private JoystickButton Floor1 = new JoystickButton(m_ButtonBoard, 2);
+   private JoystickButton Floor2 = new JoystickButton(m_ButtonBoard, 3);
+   private JoystickButton Floor3 = new JoystickButton(m_ButtonBoard, 13);
+   private JoystickButton Floor4 = new JoystickButton(m_ButtonBoard, 12);
+   private JoystickButton ManUp = new JoystickButton(m_ButtonBoard, 5);
+   private JoystickButton ManDown = new JoystickButton(m_ButtonBoard, 6);
+   private JoystickButton Accention = new JoystickButton(m_ButtonBoard, 1);
+  private JoystickButton up =new JoystickButton(m_ButtonBoard, 4);
+  private JoystickButton down =new JoystickButton(m_ButtonBoard, 7);
 
-
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /** The conta iner for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
  
     // Configure the trigger bindings
@@ -55,6 +112,7 @@ public class RobotContainer {
         );
    
   }
+  
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
    * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
@@ -72,6 +130,30 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+   double right_Axis = m_Controly.getRightTriggerAxis();
+
+    if(right_Axis>0.5){
+      
+    };
+   up.whileTrue(m_rotate_up);
+   down.whileTrue(m_rotate_down);
+    lock.whileTrue( m_Clamp);
+    unlock.whileTrue(m_LetGo);
+    ManUp.whileTrue(m_EUp);
+    ManDown.whileTrue(m_EDown);
+    Accention.onTrue(m_PTog);
+   if (Floor1.getAsBoolean()==true){
+    m_Elevator.Hight(2);
+   }
+   if (Floor2.getAsBoolean()==true){
+    m_Elevator.Hight(4);
+   }
+   if (Floor3.getAsBoolean()==true){
+    m_Elevator.Hight(6);
+   }
+   if (Floor4.getAsBoolean()==true){
+    m_Elevator.Hight(8);
+   }
   }
 
   /**
