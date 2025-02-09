@@ -10,14 +10,14 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.Counter;
-
+import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.Constants.motorConstants;
 
 
 public class Elevator extends SubsystemBase {
    private final PWMVictorSPX m_liftMotor = new PWMVictorSPX(motorConstants.Emotor);
    Counter placement = new Counter(2);
-   
+   Encoder place = new Encoder(0,1);
     
    //Encoder Flor = new Encoder(0,1, false, Encoder.CANcoder.k2x );
     public Elevator(){
@@ -27,7 +27,7 @@ public class Elevator extends SubsystemBase {
      //normal up/down for custom hights
      
     public void up(){ 
-      if(placement.get() < 10){
+      if(place.getDistance() < 10){
        m_liftMotor.set(0.5);
       }
       else{
@@ -35,7 +35,7 @@ public class Elevator extends SubsystemBase {
       }
     }
     public void down(){
-      if(placement.get() > 0){
+      if(place.get() > 0){
     m_liftMotor.set(-0.5);
     }
     else{
@@ -46,10 +46,10 @@ public class Elevator extends SubsystemBase {
    public void Hight(double level){
     //double start =  Flor.getPosition();
    // double start = 1;
-   double start = placement.get();
+   double start = place.get();
     double go = level - start;
      while(!(go<0.5)&&!(go>-0.5)){
-    start = placement.get();
+    start = place.get();
      go = level - start;
     if (go>0.5){
     up();
