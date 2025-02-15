@@ -19,8 +19,8 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.ADIS16448_IMU;
 import edu.wpi.first.math.geometry.Rotation2d;
 
-//import com.kauailabs.navx.frc.AHRS;
-//import edu.wpi.first.wpilibj.SPI;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 
 
 public class DriveTrain extends SubsystemBase {
@@ -35,29 +35,33 @@ public class DriveTrain extends SubsystemBase {
     ControlSystem.kLeftFrontDrive,
     ControlSystem.kLeftFrontTurn, 
     ControlSystem.kLFturn, 
-    DriveConstants.kFrontLeftChassisAngularOffset);
+    DriveConstants.kFrontLeftModuleAngularOffset);
+    //DriveConstants.kFrontLeftChassisAngularOffset);
 
   private final SwerveModule m_frontRight = new SwerveModule(
     ControlSystem.kRightFrontDrive,
     ControlSystem.kRightFrontTurn, 
     ControlSystem.kRFturn,
-    DriveConstants.kFrontRightChassisAngularOffset);
+    DriveConstants.kFrontRightModuleAngularOffset);
+    //DriveConstants.kFrontRightChassisAngularOffset);
 
   private final SwerveModule m_backLeft = new SwerveModule(
     ControlSystem.kLeftBackDrive,
     ControlSystem.kLeftBackTurn, 
     ControlSystem.kLBturn,
-    DriveConstants.kBackLeftChassisAngularOffset);
+    DriveConstants.kBackLeftModuleAngularOffset);
+    //DriveConstants.kBackLeftChassisAngularOffset);
 
   private final SwerveModule m_backRight = new SwerveModule(
     ControlSystem.kRightBackDrive,
     ControlSystem.kRightBackTurn, 
     ControlSystem.kRBturn,
-    DriveConstants.kBackRightChassisAngularOffset);
+    DriveConstants.kBackRightModuleAngularOffset);
+    //DriveConstants.kBackRightChassisAngularOffset);
 
 
-  private final ADIS16448_IMU m_imu = new ADIS16448_IMU();
-  //private final AHRS m_imu = new AHRS(SPI.Port.kMXP);
+  //private final ADIS16448_IMU m_imu = new ADIS16448_IMU();
+  private final AHRS m_imu = new AHRS(SPI.Port.kMXP);
   
     /***********************************************************************
      * navX-MXP: - Communication via RoboRIO MXP (SPI, I2C) and USB. - See
@@ -125,6 +129,12 @@ public class DriveTrain extends SubsystemBase {
      SmartDashboard.putNumber("FR Wheel Angle", wheelAngleFR());
      SmartDashboard.putNumber("BL Wheel Angle", wheelAngleBL());
      SmartDashboard.putNumber("BR Wheel Angle", wheelAngleBR());
+      
+     //Display Wheel orientations
+     SmartDashboard.putNumber("FL NEO Wheel Angle", wheelAngleNEOFL());
+     SmartDashboard.putNumber("FR NEO Wheel Angle", wheelAngleNEOFR());
+     SmartDashboard.putNumber("BL NEO Wheel Angle", wheelAngleNEOBL());
+     SmartDashboard.putNumber("BR NEO Wheel Angle", wheelAngleNEOBR());
   }
 
   public final double getOdometryAngle() {
@@ -163,13 +173,17 @@ public class DriveTrain extends SubsystemBase {
         fieldRelative
             ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered, Rotation2d.fromDegrees(m_imu.getAngle()))
             : new ChassisSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered));
+    
     SwerveDriveKinematics.desaturateWheelSpeeds(
         swerveModuleStates, DriveConstants.kMaxSpeed);
+    
     m_frontLeft.setDesiredState(swerveModuleStates[0]);
     m_frontRight.setDesiredState(swerveModuleStates[1]);
     m_backLeft.setDesiredState(swerveModuleStates[2]);
-    m_backRight.setDesiredState(swerveModuleStates[3]);   
-    //System.out.printf("Module state 0 %f", swerveModuleStates[0].angle.getRadians());
+    m_backRight.setDesiredState(swerveModuleStates[3]); 
+
+    //System.out.printf("Module state 0 output %f", m_frontLeft.getPosition().angle.getDegrees());
+    //System.out.printf("Module state 0 calc%f \n", swerveModuleStates[0].angle.getDegrees());
   }
     
   public void resetEncoders() {
@@ -236,6 +250,24 @@ public class DriveTrain extends SubsystemBase {
   }
   public double wheelAngleBR() {
     double angle = m_backRight.wheelAngle();
+    return angle;
+  }
+
+  // Calculate wheel angles
+  public double wheelAngleNEOFL() {
+    double angle = m_frontLeft.getTurnAngle();
+    return angle;
+  }
+  public double wheelAngleNEOFR() {
+    double angle = m_frontRight.getTurnAngle();
+    return angle;
+  }
+  public double wheelAngleNEOBL() {
+    double angle = m_backLeft.getTurnAngle();
+    return angle;
+  }
+  public double wheelAngleNEOBR() {
+    double angle = m_backRight.getTurnAngle();
     return angle;
   }
 

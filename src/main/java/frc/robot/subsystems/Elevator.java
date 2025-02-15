@@ -16,7 +16,7 @@ import frc.robot.Constants.motorConstants;
 
 public class Elevator extends SubsystemBase {
    private final PWMVictorSPX m_liftMotor = new PWMVictorSPX(motorConstants.Emotor);
-   Counter placement = new Counter(2);
+   Counter placement = new Counter(1);
    Encoder place = new Encoder(0,1);
     
    //Encoder Flor = new Encoder(0,1, false, Encoder.CANcoder.k2x );

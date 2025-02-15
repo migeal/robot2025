@@ -40,7 +40,7 @@ public class Climb extends SubsystemBase {
    // private Encoder CLE = new Encoder(0,1,false,Encoder.RelativeEncoder.k2X);
   
   public void climb(){
-    if((Right.getDistance()<200)&&(Left.getDistance()<200)){
+    if((Right.get()<200)&&(Left.get()<200)){
    leftClimb.set(0.5);
    rightClimb.set(0.5);
   }
@@ -50,7 +50,7 @@ public class Climb extends SubsystemBase {
   }
   //turn up speed for the final product
   public void LetGo(){
-    if (!((Left.getDistance()<=0)||(Right.getDistance()<=0))){
+    if (!((Left.get()<=0)||(Right.get()<=0))){
     leftClimb.set(-0.3);
     rightClimb.set(-0.3);
     }

@@ -6,6 +6,8 @@ package frc.robot;
 
 import javax.print.attribute.standard.MediaSize.NA;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.OperatorConstants;
@@ -70,7 +72,7 @@ public class RobotContainer {
   private final XboxController m_Controly = new XboxController(0);
   private final CommandJoystick m_StickOfHope = new CommandJoystick(0);
   private final Joystick m_ButtonBoard = new Joystick(1);
-  private final XboxController m_gamerTime = new XboxController(0);
+ // private final XboxController m_gamerTime = new XboxController(0);
   //commands
   private final EUp m_EUp = new EUp(m_Elevator);
   private final EDown m_EDown = new EDown(m_Elevator);
@@ -103,11 +105,11 @@ private final pull_in m_pull_in = new pull_in(m_Rollor);
     m_robotDrive.setDefaultCommand(
       // Forward motion controls x speed (forward), sideways motion controls y speed (sideways).
         new RunCommand (  
-          () -> m_robotDrive.drive( 
-          m_StickOfHope.getX(),
-          m_StickOfHope.getY(), 
-          m_StickOfHope.getZ(),
-          DriveConstants.kTeleField),m_robotDrive)
+          () -> m_robotDrive.drive(
+            -MathUtil.applyDeadband(m_StickOfHope.getY(), DriveConstants.kDriveDeadband),
+            -MathUtil.applyDeadband(-m_StickOfHope.getX(), DriveConstants.kDriveDeadband),
+            -MathUtil.applyDeadband(m_StickOfHope.getZ(), DriveConstants.kDriveDeadbandZ),
+            DriveConstants.kTeleField), m_robotDrive)
                
         );
    
@@ -129,12 +131,26 @@ private final pull_in m_pull_in = new pull_in(m_Rollor);
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-   double right_Axis = m_Controly.getRightTriggerAxis();
-
-    if(right_Axis>0.5){
+    //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+   //double right_Axis = m_Controly.getRightTriggerAxis();
+   
+    //if(right_Axis>0.5){
       
-    };
+   // };
+   m_driverController.rightTrigger().onTrue(m_push_out);
+   if(m_driverController.rightTrigger().getAsBoolean()){
+    m_driverController.setRumble(GenericHID.RumbleType.kRightRumble, 1);
+   }
+   else{
+    m_driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0);
+   }
+   m_driverController.leftTrigger().onTrue(m_pull_in);
+   if(m_driverController.leftTrigger().getAsBoolean()){
+    m_driverController.setRumble(GenericHID.RumbleType.kLeftRumble, 1);
+   }
+   else{
+    m_driverController.setRumble(GenericHID.RumbleType.kLeftRumble, 0);
+   }
    up.whileTrue(m_rotate_up);
    down.whileTrue(m_rotate_down);
     lock.whileTrue( m_Clamp);
