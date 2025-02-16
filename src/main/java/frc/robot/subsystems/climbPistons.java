@@ -10,7 +10,7 @@ public class climbPistons extends SubsystemBase{
     private DoubleSolenoid accendFR = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
    private DoubleSolenoid accendFL = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
    private DoubleSolenoid accendBR = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 12, 13);
-   private DoubleSolenoid accendBL = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 14,17);
+  
   
 public climbPistons(){}
 
@@ -18,7 +18,7 @@ public void Accend(){
     accendFR.toggle();
     accendFL.toggle();
     accendBR.toggle();
-    accendBL.toggle();
+   
    }
 
 
