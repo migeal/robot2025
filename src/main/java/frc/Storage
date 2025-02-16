@@ -1,0 +1,2 @@
+Remember to add storage for thd relitave encoder values by having it be seirializable and updating the value of stopping wherever the robot is at when a button is no longer pressed.
+have the robot motor move back depending on the saved value, then reset saved value to zero and turn off the robot.
