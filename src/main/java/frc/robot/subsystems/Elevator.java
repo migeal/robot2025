@@ -17,7 +17,7 @@ import frc.robot.Constants.motorConstants;
 public class Elevator extends SubsystemBase {
    private final PWMVictorSPX m_liftMotor = new PWMVictorSPX(motorConstants.Emotor);
    Counter placement = new Counter(1);
-   Encoder place = new Encoder(0,1);
+   Encoder place = new Encoder(motorConstants.ElvateA,motorConstants.ElvateB);
     
    //Encoder Flor = new Encoder(0,1, false, Encoder.CANcoder.k2x );
     public Elevator(){
@@ -27,7 +27,7 @@ public class Elevator extends SubsystemBase {
      //normal up/down for custom hights
      
     public void up(){ 
-      if(place.getDistance() < 10){
+      if(place.get() < 10){
        m_liftMotor.set(0.5);
       }
       else{

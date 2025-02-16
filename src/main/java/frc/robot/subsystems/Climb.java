@@ -24,8 +24,8 @@ import frc.robot.Constants.motorConstants;
 public class Climb extends SubsystemBase {
   private PWMVictorSPX leftClimb = new PWMVictorSPX(motorConstants.CmotorL);
    private PWMVictorSPX rightClimb = new PWMVictorSPX(motorConstants.CmotorR);
-   Encoder Left = new Encoder(4,5);
-   Encoder Right = new Encoder(6,7,true);
+   Encoder Left = new Encoder(motorConstants.LCA,motorConstants.LCB);
+   Encoder Right = new Encoder(motorConstants.RCA,motorConstants.RCB,true);
   
   
    Counter RightTilt = new Counter(3);

@@ -84,16 +84,16 @@ public final class Constants {
 
   public static class ControlSystem {
     // Driving motor CAN IDs
-    public static final int kLeftFrontDrive = 2;
-    public static final int kLeftBackDrive = 4;
-    public static final int kRightFrontDrive = 1;
-    public static final int kRightBackDrive = 3;
+    public static final int kLeftFrontDrive = 12;
+    public static final int kLeftBackDrive = 15;
+    public static final int kRightFrontDrive = 3;
+    public static final int kRightBackDrive = 0;
     // Turning motors
-    public static final int kLeftFrontTurn = 10;
-    public static final int kLeftBackTurn = 9;
-    public static final int kRightFrontTurn = 11;
-    public static final int kRightBackTurn = 12;
-    // CANCoder Can IDs for tunring encoders
+    public static final int kLeftFrontTurn = 8;
+    public static final int kLeftBackTurn = 11;
+    public static final int kRightFrontTurn = 7;
+    public static final int kRightBackTurn = 4;
+    // CANCoder Can IDs for turning encoders
     public static final int kLFturn = 13;
     public static final int kLBturn = 16;
     public static final int kRFturn = 14;
@@ -101,11 +101,21 @@ public final class Constants {
   }
 
   public static class motorConstants{
+    // motors for subsystems CAN IDs
     public static final int CmotorL = 14;
     public static final int CmotorR = 1;
     public static final int Emotor = 2;
     public static final int InmotorL= 5;
     public static final int InmotorR= 10;
+    // AM encoder DIO's
+    public static final int ElvateA = 0;
+    public static final int ElvateB = 1;
+    public static final int WA = 2;
+    public static final int WB = 3;
+    public static final int LCA = 4;
+    public static final int LCB = 5;
+    public static final int RCA = 6;
+    public static final int RCB = 7;
   }
 
   // Vendor Dep URLS
