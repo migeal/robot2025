@@ -16,27 +16,29 @@ import frc.robot.Constants.motorConstants;
 
 public class Elevator extends SubsystemBase {
    private final PWMVictorSPX m_liftMotor = new PWMVictorSPX(motorConstants.Emotor);
-   Counter placement = new Counter(1);
+   //Counter placement = new Counter(1);
    Encoder place = new Encoder(motorConstants.ElvateA,motorConstants.ElvateB);
-    
+    double dia = 0.75/1;
+    double dis = (dia*3.14159/1024)/72;
    //Encoder Flor = new Encoder(0,1, false, Encoder.CANcoder.k2x );
     public Elevator(){
-      placement.setSemiPeriodMode(true);
+      //placement.setSemiPeriodMode(true);
+      place.setDistancePerPulse(dis);
     }
 
      //normal up/down for custom hights
      
     public void up(){ 
-      if(place.get() < 10){
-       m_liftMotor.set(0.5);
+      if(place.getDistance() < 6){
+       m_liftMotor.set(1);
       }
       else{
         stop();
       }
     }
     public void down(){
-      if(place.get() > 0){
-    m_liftMotor.set(-0.5);
+      if(place.getDistance() > 0){
+    m_liftMotor.set(-1);
     }
     else{
       stop();
@@ -46,15 +48,15 @@ public class Elevator extends SubsystemBase {
    public void Hight(double level){
     //double start =  Flor.getPosition();
    // double start = 1;
-   double start = place.get();
+   double start = place.getDistance();
     double go = level - start;
-     while(!(go<0.5)&&!(go>-0.5)){
-    start = place.get();
+     while(!(go<0.2)&&!(go>-0.2)){
+    start = place.getDistance();
      go = level - start;
-    if (go>0.5){
+    if (go>=0.2){
     up();
     }
-    else if(go<-0.5){
+    else if(go<=-0.2){
       down();
     }
     else{

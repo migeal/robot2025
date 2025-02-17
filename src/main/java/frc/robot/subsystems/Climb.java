@@ -26,10 +26,11 @@ public class Climb extends SubsystemBase {
    private PWMVictorSPX rightClimb = new PWMVictorSPX(motorConstants.CmotorR);
    Encoder Left = new Encoder(motorConstants.LCA,motorConstants.LCB);
    Encoder Right = new Encoder(motorConstants.RCA,motorConstants.RCB,true);
+  double dia = 1*2;
+  double dis = dia*3.14159/1024;
   
-  
-   Counter RightTilt = new Counter(3);
-   Counter LeftTilt = new Counter(4);
+   //Counter RightTilt = new Counter(3);
+   //Counter LeftTilt = new Counter(4);
   public Climb(){
     rightClimb.setInverted(true);
    
@@ -40,7 +41,7 @@ public class Climb extends SubsystemBase {
    // private Encoder CLE = new Encoder(0,1,false,Encoder.RelativeEncoder.k2X);
   
   public void climb(){
-    if((Right.get()<200)&&(Left.get()<200)){
+    if((Right.get()<0.5)&&(Left.get()<0.5)){
    leftClimb.set(0.5);
    rightClimb.set(0.5);
   }
@@ -50,7 +51,7 @@ public class Climb extends SubsystemBase {
   }
   //turn up speed for the final product
   public void LetGo(){
-    if (!((Left.get()<=0)||(Right.get()<=0))){
+    if ((Left.get()>0)&&(Right.get()>0)){
     leftClimb.set(-0.3);
     rightClimb.set(-0.3);
     }

@@ -23,7 +23,7 @@ public class Rotate_rollor extends SubsystemBase {
 
 
 public void Rotate_up(){
- if(Move.get() <10){;
+ if(Move.getDistance() <10){;
  intake_rotate.set(1);
 }
 else{
@@ -37,7 +37,7 @@ public void stay(){
 }
 public void rotate_down(){
     
-  if(Move.get() >1){;
+  if(Move.getDistance() >-1){;
     intake_rotate.set(-1);
    }
    else{
