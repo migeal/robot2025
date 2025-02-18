@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Encoder;
 
 public class Rotate_rollor extends SubsystemBase {
   Counter move= new Counter(1);
-  Encoder Move= new Encoder(motorConstants.WA, motorConstants.WB);
+ public static Encoder TiltR= new Encoder(motorConstants.WA, motorConstants.WB);
   public Rotate_rollor(){
   move.setSemiPeriodMode(true);
  } 
@@ -23,7 +23,7 @@ public class Rotate_rollor extends SubsystemBase {
 
 
 public void Rotate_up(){
- if(Move.getDistance() <10){;
+ if(TiltR.getDistance() <10){;
  intake_rotate.set(1);
 }
 else{
@@ -37,7 +37,7 @@ public void stay(){
 }
 public void rotate_down(){
     
-  if(Move.getDistance() >-1){;
+  if(TiltR.getDistance() >-1){;
     intake_rotate.set(-1);
    }
    else{

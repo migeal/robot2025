@@ -24,8 +24,8 @@ import frc.robot.Constants.motorConstants;
 public class Climb extends SubsystemBase {
   private PWMVictorSPX leftClimb = new PWMVictorSPX(motorConstants.CmotorL);
    private PWMVictorSPX rightClimb = new PWMVictorSPX(motorConstants.CmotorR);
-   Encoder Left = new Encoder(motorConstants.LCA,motorConstants.LCB);
-   Encoder Right = new Encoder(motorConstants.RCA,motorConstants.RCB,true);
+  public static Encoder LeftE = new Encoder(motorConstants.LCA,motorConstants.LCB);
+  public static Encoder RightE = new Encoder(motorConstants.RCA,motorConstants.RCB,true);
   double dia = 1*2;
   double dis = dia*3.14159/1024;
   
@@ -41,7 +41,7 @@ public class Climb extends SubsystemBase {
    // private Encoder CLE = new Encoder(0,1,false,Encoder.RelativeEncoder.k2X);
   
   public void climb(){
-    if((Right.get()<0.5)&&(Left.get()<0.5)){
+    if((RightE.get()<0.5)&&(LeftE.get()<0.5)){
    leftClimb.set(0.5);
    rightClimb.set(0.5);
   }
@@ -51,7 +51,7 @@ public class Climb extends SubsystemBase {
   }
   //turn up speed for the final product
   public void LetGo(){
-    if ((Left.get()>0)&&(Right.get()>0)){
+    if ((LeftE.get()>0)&&(RightE.get()>0)){
     leftClimb.set(-0.3);
     rightClimb.set(-0.3);
     }
