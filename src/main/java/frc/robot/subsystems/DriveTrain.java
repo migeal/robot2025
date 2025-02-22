@@ -105,6 +105,8 @@ public class DriveTrain extends SubsystemBase {
 
   @Override
   public void periodic() {
+
+   // LimelightHelpers.LimelightResults results = LimelightHelpers.getLatestResults("limelight");
     // update odometry
     m_odometry.update(
         Rotation2d.fromDegrees(m_imu.getAngle()),
@@ -116,14 +118,15 @@ public class DriveTrain extends SubsystemBase {
         });
     
     LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
-    if (limelightMeasurement.tagCount >= 2) {
-    m_odometry.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
-    m_odometry.addVisionMeasurement(
-        limelightMeasurement.pose,
-        limelightMeasurement.timestampSeconds
-    );
+    if (limelightMeasurement != null){
+      if (limelightMeasurement.tagCount >= 2) {
+        m_odometry.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
+        m_odometry.addVisionMeasurement(
+          limelightMeasurement.pose,
+          limelightMeasurement.timestampSeconds
+        );
+      }
     }
-
     
     // Put values to SmartDashboard 
     SmartDashboard.putNumber("Front Left Drive Speed", DriveVelFL());
