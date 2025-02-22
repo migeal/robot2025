@@ -14,6 +14,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.spark.SparkBase;
 
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -22,8 +23,8 @@ import frc.robot.Constants.motorConstants;
 
 
 public class Climb extends SubsystemBase {
-  private PWMVictorSPX leftClimb = new PWMVictorSPX(motorConstants.CmotorL);
-   private PWMVictorSPX rightClimb = new PWMVictorSPX(motorConstants.CmotorR);
+  private WPI_VictorSPX leftClimb = new WPI_VictorSPX(motorConstants.CmotorL);
+   private WPI_VictorSPX rightClimb = new WPI_VictorSPX(motorConstants.CmotorR);
   public static Encoder LeftE = new Encoder(motorConstants.LCA,motorConstants.LCB);
   public static Encoder RightE = new Encoder(motorConstants.RCA,motorConstants.RCB,true);
   double dia = 1*2;

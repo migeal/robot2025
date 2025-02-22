@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.motorConstants;  
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.Encoder; 
@@ -18,7 +20,7 @@ public class Rotate_rollor extends SubsystemBase {
   public Rotate_rollor(){
   move.setSemiPeriodMode(true);
  } 
-    private PWMVictorSPX intake_rotate = new PWMVictorSPX(motorConstants.InmotorR);
+    private WPI_VictorSPX intake_rotate = new WPI_VictorSPX(motorConstants.InmotorR);
    double value = move.getPeriod();
 
 

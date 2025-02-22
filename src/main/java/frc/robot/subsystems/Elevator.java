@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.motorcontrol.Victor;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkClosedLoopController;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.Encoder;
@@ -15,7 +16,7 @@ import frc.robot.Constants.motorConstants;
 
 
 public class Elevator extends SubsystemBase {
-   private final PWMVictorSPX m_liftMotor = new PWMVictorSPX(motorConstants.Emotor);
+   private final WPI_VictorSPX m_liftMotor = new WPI_VictorSPX(motorConstants.Emotor);
    //Counter placement = new Counter(1);
   public static Encoder place = new Encoder(motorConstants.ElvateA,motorConstants.ElvateB);
     double dia = 0.75/1;

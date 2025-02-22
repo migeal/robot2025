@@ -6,11 +6,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.motorConstants;
 
 import edu.wpi.first.wpilibj.motorcontrol.Victor;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.RelativeEncoder;
 
 public class Rollor extends SubsystemBase {
 public Rollor(){}
-private Victor intake = new Victor(motorConstants.InmotorL);
+private WPI_VictorSPX intake = new WPI_VictorSPX(motorConstants.InmotorL);
 
 
 //grabing the algee and coral 
