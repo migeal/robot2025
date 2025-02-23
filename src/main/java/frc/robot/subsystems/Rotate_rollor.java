@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.motorConstants;  
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
-
+import frc.robot.Transport;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.Counter;
@@ -19,6 +19,7 @@ public class Rotate_rollor extends SubsystemBase {
  public static Encoder TiltR= new Encoder(motorConstants.WA, motorConstants.WB);
  double dia = 16*2;
  double dis = (dia*3.14159/1024)/343;
+ 
   public Rotate_rollor(){
  // move.setSemiPeriodMode(true);
 
@@ -30,6 +31,7 @@ public class Rotate_rollor extends SubsystemBase {
 public void Rotate_up(){
  if(TiltR.getDistance() <37.6){;
  intake_rotate.set(1);
+ Transport.Go();
 }
 else{
   stay();
@@ -39,15 +41,18 @@ else{
 
 public void stay(){
     intake_rotate.set(0);
+    Transport.Go();
 }
 public void rotate_down(){
     
   if(TiltR.getDistance() >0){;
     intake_rotate.set(-1);
+    Transport.Go();
    }
    else{
      stay();
    }
+   
 }
 @Override
    public void periodic() {
