@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.Serializable;
 
 public class StorageCenter implements Serializable {
-private static final long key = 1L;
+private static final long key = 1042L;
 private double elvtrVal;
 private double ClbValL;
 private double ClbValR;
