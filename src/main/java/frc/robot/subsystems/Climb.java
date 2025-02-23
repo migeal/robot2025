@@ -43,9 +43,9 @@ public class Climb extends SubsystemBase {
    // private Encoder CLE = new Encoder(0,1,false,Encoder.RelativeEncoder.k2X);
   
   public void climb(){
-    if((RightE.getDistance()<5.89)&&(LeftE.getDistance()<5.89)){
-   leftClimb.set(0.5);
-   rightClimb.set(0.5);
+    if((RightE.getDistance()<11.78)&&(LeftE.getDistance()<11.78)){
+   leftClimb.set(1);
+   rightClimb.set(1);
   }
   else{
     stop();
@@ -54,8 +54,8 @@ public class Climb extends SubsystemBase {
   //turn up speed for the final product
   public void LetGo(){
     if ((LeftE.getDistance()>0)&&(RightE.getDistance()>0)){
-    leftClimb.set(-0.3);
-    rightClimb.set(-0.3);
+    leftClimb.set(-1);
+    rightClimb.set(-1);
     }
   else{
     stop();
@@ -69,7 +69,7 @@ public class Climb extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    //if (!(((LeftE.getDistance()>0)&&(RightE.getDistance()>0))&&((RightE.getDistance()<0.45)&&(LeftE.getDistance()<0.45)))){
+    //if (!(((LeftE.getDistance()>0)&&(RightE.getDistance()>0))&&((RightE.getDistance()<11.78)&&(LeftE.getDistance()<0.11.78)))){
      // leftClimb.set(0);
      // rightClimb.set(0);
     //}
