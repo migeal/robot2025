@@ -19,7 +19,7 @@ public class Elevator extends SubsystemBase {
    private final WPI_VictorSPX m_liftMotor = new WPI_VictorSPX(motorConstants.Emotor);
    //Counter placement = new Counter(1);
   public static Encoder place = new Encoder(motorConstants.ElvateA,motorConstants.ElvateB);
-    double dia = 0.75/1;
+    double dia = 0.75;
     double dis = (dia*3.14159/1024)/72;
    //Encoder Flor = new Encoder(0,1, false, Encoder.CANcoder.k2x );
     public Elevator(){
