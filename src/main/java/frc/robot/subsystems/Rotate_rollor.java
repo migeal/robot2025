@@ -17,15 +17,18 @@ import edu.wpi.first.wpilibj.Encoder;
 public class Rotate_rollor extends SubsystemBase {
   Counter move= new Counter(1);
  public static Encoder TiltR= new Encoder(motorConstants.WA, motorConstants.WB);
+ double dia = 16*2;
+ double dis = (dia*3.14159/1024)/343;
   public Rotate_rollor(){
-  move.setSemiPeriodMode(true);
+ // move.setSemiPeriodMode(true);
+
  } 
     private WPI_VictorSPX intake_rotate = new WPI_VictorSPX(motorConstants.InmotorR);
-   double value = move.getPeriod();
+  // double value = move.getPeriod();
 
 
 public void Rotate_up(){
- if(TiltR.getDistance() <10){;
+ if(TiltR.getDistance() <37.6){;
  intake_rotate.set(1);
 }
 else{
@@ -39,7 +42,7 @@ public void stay(){
 }
 public void rotate_down(){
     
-  if(TiltR.getDistance() >-1){;
+  if(TiltR.getDistance() >0){;
     intake_rotate.set(-1);
    }
    else{

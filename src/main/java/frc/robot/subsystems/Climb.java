@@ -27,14 +27,15 @@ public class Climb extends SubsystemBase {
    private WPI_VictorSPX rightClimb = new WPI_VictorSPX(motorConstants.CmotorR);
   public static Encoder LeftE = new Encoder(motorConstants.LCA,motorConstants.LCB);
   public static Encoder RightE = new Encoder(motorConstants.RCA,motorConstants.RCB,true);
-  double dia = 1*2;
-  double dis = dia*3.14159/1024;
+  double dia = 5*2;
+  double dis = (dia*3.14159/1024)/256;
   
    //Counter RightTilt = new Counter(3);
    //Counter LeftTilt = new Counter(4);
   public Climb(){
     rightClimb.setInverted(true);
-   
+    RightE.setDistancePerPulse(dis);
+    LeftE.setDistancePerPulse(dis);
   }
   
    
@@ -42,9 +43,9 @@ public class Climb extends SubsystemBase {
    // private Encoder CLE = new Encoder(0,1,false,Encoder.RelativeEncoder.k2X);
   
   public void climb(){
-    if((RightE.get()<0.5)&&(LeftE.get()<0.5)){
-   leftClimb.set(0.5);
-   rightClimb.set(0.5);
+    if((RightE.getDistance()<11.78)&&(LeftE.getDistance()<11.78)){
+   leftClimb.set(1);
+   rightClimb.set(1);
   }
   else{
     stop();
@@ -52,9 +53,9 @@ public class Climb extends SubsystemBase {
   }
   //turn up speed for the final product
   public void LetGo(){
-    if ((LeftE.get()>0)&&(RightE.get()>0)){
-    leftClimb.set(-0.3);
-    rightClimb.set(-0.3);
+    if ((LeftE.getDistance()>0)&&(RightE.getDistance()>0)){
+    leftClimb.set(-1);
+    rightClimb.set(-1);
     }
   else{
     stop();
@@ -68,6 +69,10 @@ public class Climb extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    //if (!(((LeftE.getDistance()>0)&&(RightE.getDistance()>0))&&((RightE.getDistance()<11.78)&&(LeftE.getDistance()<0.11.78)))){
+     // leftClimb.set(0);
+     // rightClimb.set(0);
+    //}
   }
 
   @Override
