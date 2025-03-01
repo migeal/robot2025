@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Transport;
 
+
 //commands
 import frc.robot.commands.EUp;
 import frc.robot.commands.EDown;
@@ -98,6 +99,8 @@ private final pull_in m_pull_in = new pull_in(m_Rollor);
   private JoystickButton up =new JoystickButton(m_ButtonBoard, 4);
   private JoystickButton down =new JoystickButton(m_ButtonBoard, 7);
 
+  
+
   /** The conta iner for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
  
@@ -114,8 +117,25 @@ private final pull_in m_pull_in = new pull_in(m_Rollor);
             DriveConstants.kTeleField), m_robotDrive)
                
         );
-   
+      // Configure the trigger bindings
+      configureBindings();
+      //Configure driving default
+      m_robotDrive.setDefaultCommand(
+        // Forward motion controls x speed (forward), sideways motion controls y speed (sideways).
+          new RunCommand (  
+            () -> m_robotDrive.drive(
+              -MathUtil.applyDeadband(m_Controly.getRightY(), DriveConstants.kDriveDeadband),
+              -MathUtil.applyDeadband(-m_Controly.getRightX(), DriveConstants.kDriveDeadband),
+              -MathUtil.applyDeadband(m_Controly.getLeftX(), DriveConstants.kDriveDeadbandZ),
+              DriveConstants.kTeleField), m_robotDrive)
+                 
+          );
   }
+  
+ 
+ 
+   
+  
   
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -160,6 +180,15 @@ private final pull_in m_pull_in = new pull_in(m_Rollor);
     ManUp.whileTrue(m_EUp);
     ManDown.whileTrue(m_EDown);
     Accention.onTrue(m_PTog);
+   if (m_Controly.getAButtonPressed()==true){
+    m_Rotate_rollor.Rotate(2);
+   }
+   if (m_Controly.getXButtonPressed()==true){
+    m_Rotate_rollor.Rotate(4);
+   }
+   if (m_Controly.getYButtonPressed()==true){
+    m_Rotate_rollor.Rotate(6);
+   } 
    if (Floor1.getAsBoolean()==true){
     m_Elevator.Hight(2);
    }

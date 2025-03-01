@@ -4,21 +4,21 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.rPiston;
+import frc.robot.subsystems.stableizerP;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class RPistonTog extends Command {
+public class stableizerP_togle extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final rPiston m_rPiston;
+  private final stableizerP m_stableizerP;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param climbPistons The subsystem used by this command.
    */
-  public RPistonTog(rPiston rPiston) {
-    m_rPiston = rPiston;
+  public stableizerP_togle(stableizerP rPiston) {
+    m_stableizerP = rPiston;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(rPiston);
   }
@@ -26,7 +26,7 @@ public class RPistonTog extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_rPiston.OutnIn();
+    m_stableizerP.OutnIn();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

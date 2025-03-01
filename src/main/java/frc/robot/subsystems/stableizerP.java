@@ -6,12 +6,12 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
-public class rPiston extends SubsystemBase{
+public class stableizerP extends SubsystemBase{
     private DoubleSolenoid fourth = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
    
   
   
-public rPiston(){}
+public stableizerP(){}
 //better than InnOut, toggle for this random piston that is here I guess.
 public void OutnIn(){
     fourth.toggle();

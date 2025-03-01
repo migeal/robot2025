@@ -63,5 +63,25 @@ public void rotate_down(){
    public void simulationPeriodic() {
      // This method will be called once per scheduler run during simulation
    }
-}
+   public void Rotate(double level){
+    //double start =  Flor.getPosition();
+   // double start = 1;
+   double start = TiltR.getDistance();
+    double go = level - start;
+     while(!(go<0.2)&&!(go>-0.2)){
+    start = TiltR.getDistance();
+     go = level - start;
+    if (go>=0.2){
+    Rotate_up();
+    }
+    else if(go<=-0.2){
+      rotate_down();
+    }
+    else{
+      stay();
+      break;
+    }
+    }
+   }
+  }
 

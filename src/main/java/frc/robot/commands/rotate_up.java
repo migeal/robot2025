@@ -24,7 +24,7 @@ public class rotate_up extends Command{
       // Called once the command ends or is interrupted.
       @Override
       public void end(boolean interrupted) {
-        m_rotate.stay();
+        m_rotate.stay(); 
       }
     
       // Returns true when the command should end.
