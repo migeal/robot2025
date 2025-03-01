@@ -66,7 +66,12 @@ public class Elevator extends SubsystemBase {
     }
     }
    }
-   
+   public void LBup(){
+    m_liftMotor.set(0.5);
+   }
+   public void LBdown(){
+    m_liftMotor.set(-0.5);
+   }
    public void stop(){
     m_liftMotor.set(0);
    

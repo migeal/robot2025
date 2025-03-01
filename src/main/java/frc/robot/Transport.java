@@ -8,7 +8,7 @@ public class Transport {
 StorageCenter QSave = new StorageCenter();
 
 try{
-FileOutputStream repairIn = new FileOutputStream("StorageCenter.Guak");
+FileOutputStream repairIn = new FileOutputStream("Storage.txt");
 ObjectOutputStream encOut = new ObjectOutputStream(repairIn);
 encOut.writeObject(QSave);
 encOut.close();

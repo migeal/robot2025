@@ -31,7 +31,7 @@ public class Rotate_rollor extends SubsystemBase {
 public void Rotate_up(){
  if(TiltR.getDistance() <37.6){;
  intake_rotate.set(1);
- Transport.Go();
+ 
 }
 else{
   stay();
@@ -41,13 +41,13 @@ else{
 
 public void stay(){
     intake_rotate.set(0);
-    Transport.Go();
+    
 }
 public void rotate_down(){
     
   if(TiltR.getDistance() >0){;
     intake_rotate.set(-1);
-    Transport.Go();
+    
    }
    else{
      stay();

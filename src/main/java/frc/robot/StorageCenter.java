@@ -19,10 +19,10 @@ private double RRVal;
     ClbValR = Climb.RightE.getDistance();
     RRVal = Rotate_rollor.TiltR.getDistance();
    }
-    private void output(java.io.ObjectOutputStream Guak) throws IOException{
-        Guak.defaultWriteObject();
-    }
-    private void search(java.io.ObjectInputStream Guak) throws IOException, ClassNotFoundException {
-       Guak.defaultReadObject();
-    }
+    //private void output(java.io.ObjectOutputStream Guak) throws IOException{
+      //  Guak.defaultWriteObject();
+   // }
+   // private void search(java.io.ObjectInputStream Guak) throws IOException, ClassNotFoundException {
+    //   Guak.defaultReadObject();
+   // }
 }

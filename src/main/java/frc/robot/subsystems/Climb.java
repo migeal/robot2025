@@ -61,6 +61,16 @@ public class Climb extends SubsystemBase {
     stop();
   }
   }
+  // Limit break control
+ public void LBclimb(){
+  leftClimb.set(0.5);
+  rightClimb.set(0.5);
+ }
+
+  public void LBLetGo(){
+    leftClimb.set(-0.5);
+    rightClimb.set(-0.5);
+  }
   //@Override
   public void stop(){
     leftClimb.set(0);

@@ -7,6 +7,7 @@ package frc.robot;
 import javax.print.attribute.standard.MediaSize.NA;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -20,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.Transport;
 
 //commands
 import frc.robot.commands.EUp;
@@ -170,6 +172,10 @@ private final pull_in m_pull_in = new pull_in(m_Rollor);
    if (Floor4.getAsBoolean()==true){
     m_Elevator.Hight(8);
    }
+   // To save values for relitave encoders at the end of a match
+   if (DriverStation.isDisabled()){
+       Transport.Go();
+   } 
   }
 
   /**
