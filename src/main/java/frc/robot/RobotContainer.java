@@ -34,7 +34,7 @@ import frc.robot.commands.push_out;
 import frc.robot.commands.pull_in;
 import frc.robot.commands.rotate_down;
 import frc.robot.commands.rotate_up;
-
+import frc.robot.commands.stableizerP_togle;
 
 //subsystems
 import frc.robot.subsystems.DriveTrain;
@@ -43,7 +43,7 @@ import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.climbPistons;
 import frc.robot.subsystems.Rotate_rollor;
 import frc.robot.subsystems.Rollor;
-
+import frc.robot.subsystems.stableizerP;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.motorConstants;
 
@@ -71,6 +71,7 @@ public class RobotContainer {
   private final climbPistons m_CP = new climbPistons();
   private final Rollor m_Rollor = new Rollor();
   private final Rotate_rollor m_Rotate_rollor = new Rotate_rollor();
+  private final stableizerP m_Stab = new stableizerP();
   // joystick 
   private final XboxController m_Controly = new XboxController(0);
   private final CommandJoystick m_StickOfHope = new CommandJoystick(0);
@@ -86,6 +87,7 @@ public class RobotContainer {
   private final rotate_down m_rotate_down = new rotate_down(m_Rotate_rollor);
 private final push_out m_push_out =new push_out(m_Rollor);
 private final pull_in m_pull_in = new pull_in(m_Rollor);
+private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
   //buttons
    private JoystickButton lock = new JoystickButton(m_ButtonBoard, 8);
    private JoystickButton unlock = new JoystickButton(m_ButtonBoard, 9);
@@ -95,11 +97,12 @@ private final pull_in m_pull_in = new pull_in(m_Rollor);
    private JoystickButton Floor4 = new JoystickButton(m_ButtonBoard, 12);
    private JoystickButton ManUp = new JoystickButton(m_ButtonBoard, 5);
    private JoystickButton ManDown = new JoystickButton(m_ButtonBoard, 6);
-   private JoystickButton Accention = new JoystickButton(m_ButtonBoard, 1);
+   //private JoystickButton Accention = new JoystickButton(m_ButtonBoard, 1);
   private JoystickButton up =new JoystickButton(m_ButtonBoard, 4);
   private JoystickButton down =new JoystickButton(m_ButtonBoard, 7);
-
-  
+  private JoystickButton tiltu =new JoystickButton(m_ButtonBoard, 5);
+  private JoystickButton tiltm =new JoystickButton(m_ButtonBoard, 6);
+  private JoystickButton tiltd =new JoystickButton(m_ButtonBoard, 9);
 
   /** The conta iner for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -159,6 +162,8 @@ private final pull_in m_pull_in = new pull_in(m_Rollor);
     //if(right_Axis>0.5){
       
    // };
+   m_driverController.y().onTrue(m_stab);
+   m_driverController.a().onTrue(m_PTog);
    m_driverController.rightTrigger().onTrue(m_push_out);
    if(m_driverController.rightTrigger().getAsBoolean()){
     m_driverController.setRumble(GenericHID.RumbleType.kRightRumble, 1);
@@ -175,31 +180,31 @@ private final pull_in m_pull_in = new pull_in(m_Rollor);
    }
    up.whileTrue(m_rotate_up);
    down.whileTrue(m_rotate_down);
-    lock.whileTrue( m_Clamp);
-    unlock.whileTrue(m_LetGo);
+    m_driverController.x().whileTrue( m_Clamp);
+    m_driverController.b().whileTrue(m_LetGo);
     ManUp.whileTrue(m_EUp);
     ManDown.whileTrue(m_EDown);
-    Accention.onTrue(m_PTog);
-   if (m_Controly.getAButtonPressed()==true){
-    m_Rotate_rollor.Rotate(2);
+   // Accention.onTrue(m_PTog);
+   if (tiltu.getAsBoolean()==true){
+    m_Rotate_rollor.Rotate(135);
    }
-   if (m_Controly.getXButtonPressed()==true){
-    m_Rotate_rollor.Rotate(4);
+   if (tiltm.getAsBoolean()==true){
+    m_Rotate_rollor.Rotate(90);
    }
-   if (m_Controly.getYButtonPressed()==true){
-    m_Rotate_rollor.Rotate(6);
+   if (tiltd.getAsBoolean()==true){
+    m_Rotate_rollor.Rotate(45);
    } 
    if (Floor1.getAsBoolean()==true){
-    m_Elevator.Hight(2);
+    m_Elevator.Hight(0);
    }
    if (Floor2.getAsBoolean()==true){
     m_Elevator.Hight(4);
    }
    if (Floor3.getAsBoolean()==true){
-    m_Elevator.Hight(6);
+    m_Elevator.Hight(12);
    }
    if (Floor4.getAsBoolean()==true){
-    m_Elevator.Hight(8);
+    m_Elevator.Hight(18.85);
    }
    // To save values for relitave encoders at the end of a match
    if (DriverStation.isDisabled()){

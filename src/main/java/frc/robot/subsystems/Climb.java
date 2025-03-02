@@ -17,10 +17,11 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.spark.SparkBase;
 
+
 import com.revrobotics.spark.SparkClosedLoopController;
 
 import frc.robot.Constants.motorConstants;
-
+import frc.robot.Transport;
 
 public class Climb extends SubsystemBase {
   private WPI_VictorSPX leftClimb = new WPI_VictorSPX(motorConstants.CmotorL);
@@ -28,7 +29,7 @@ public class Climb extends SubsystemBase {
   public static Encoder LeftE = new Encoder(motorConstants.LCA,motorConstants.LCB);
   public static Encoder RightE = new Encoder(motorConstants.RCA,motorConstants.RCB,true);
   double dia = 5*2;
-  double dis = (dia*3.14159/1024)/256;
+  double dis = (dia*Math.PI/1024)/256;
   
    //Counter RightTilt = new Counter(3);
    //Counter LeftTilt = new Counter(4);
@@ -70,6 +71,27 @@ public class Climb extends SubsystemBase {
   public void LBLetGo(){
     leftClimb.set(-0.5);
     rightClimb.set(-0.5);
+  }
+  public void Reset(){
+    double goalL= Transport.Lastsave(2); 
+    double goalR= Transport.Lastsave(3);
+   double ProgL = goalL+LeftE.getDistance();
+   double ProgR = goalR+RightE.getDistance();
+   while ((ProgL !=0)&&(ProgR !=0)){
+    ProgL = goalL+LeftE.getDistance();
+    ProgR = goalR+RightE.getDistance();
+   if(ProgL>0){
+    LBLetGo();
+   }
+   else if (ProgL <0){
+    LBclimb();
+   }
+   else{
+    stop();
+    break;
+   }
+   }
+   stop();
   }
   //@Override
   public void stop(){

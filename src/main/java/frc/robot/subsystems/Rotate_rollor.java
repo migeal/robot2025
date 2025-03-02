@@ -18,11 +18,11 @@ public class Rotate_rollor extends SubsystemBase {
   Counter move= new Counter(1);
  public static Encoder TiltR= new Encoder(motorConstants.WA, motorConstants.WB);
  double dia = 16*2;
- double dis = (dia*3.14159/1024)/343;
+ double dis = (dia*Math.PI/1024)/343;
  
   public Rotate_rollor(){
  // move.setSemiPeriodMode(true);
-
+    TiltR.setDistancePerPulse(dis);
  } 
     private WPI_VictorSPX intake_rotate = new WPI_VictorSPX(motorConstants.InmotorR);
   // double value = move.getPeriod();
@@ -63,14 +63,14 @@ public void rotate_down(){
    public void simulationPeriodic() {
      // This method will be called once per scheduler run during simulation
    }
-   public void Rotate(double level){
-    //double start =  Flor.getPosition();
-   // double start = 1;
+   public void Rotate(double degree){
+    // specifide level finder for Rotate_roller (aka wrist).
    double start = TiltR.getDistance();
-    double go = level - start;
+    double change = (degree/360)*(dia*Math.PI);
+    double go = change - start;
      while(!(go<0.2)&&!(go>-0.2)){
     start = TiltR.getDistance();
-     go = level - start;
+     go = change - start;
     if (go>=0.2){
     Rotate_up();
     }
@@ -82,6 +82,34 @@ public void rotate_down(){
       break;
     }
     }
+    stay();
    }
+   //limit break movement
+   public void LBRotate_Up(){
+    intake_rotate.set(0.5);
+   }
+   public void LBRotate_Down(){
+    intake_rotate.set(-0.5);
+   }
+
+   public void Reset(){
+    double Goal = Transport.Lastsave(4);
+    double Progress = Goal+TiltR.getDistance();
+    while(Progress!=0){
+      Progress = Goal+TiltR.getDistance();
+      if(Progress>0){
+        rotate_down();
+      }
+      else if(Progress<0){
+        Rotate_up();
+      }
+      else{
+        stay();
+        break;
+      }
+    }
+    stay();
+   }
+
   }
 

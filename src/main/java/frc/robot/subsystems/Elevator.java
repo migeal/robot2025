@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.Encoder;
+import frc.robot.Transport;
 import frc.robot.Constants.motorConstants;
 
 
@@ -20,7 +21,8 @@ public class Elevator extends SubsystemBase {
    //Counter placement = new Counter(1);
   public static Encoder place = new Encoder(motorConstants.ElvateA,motorConstants.ElvateB);
     double dia = 0.75;
-    double dis = (dia*3.14159/1024)/72;
+    double dis = (dia*Math.PI/1024)/72;
+    //10 times to top
    //Encoder Flor = new Encoder(0,1, false, Encoder.CANcoder.k2x );
     public Elevator(){
       //placement.setSemiPeriodMode(true);
@@ -76,6 +78,24 @@ public class Elevator extends SubsystemBase {
     m_liftMotor.set(0);
    
     
+   }
+   public void Reset(){
+    double goal = Transport.Lastsave(1);
+    double progress = goal+place.getDistance();
+    while(progress!=0){
+      progress=goal+place.getDistance();
+      if(progress>0){
+        LBdown();
+      }
+      else if(progress<0){
+        LBup();
+      }
+      else{
+        stop();
+        break;
+      }
+    }
+    stop();
    }
 
    @Override
