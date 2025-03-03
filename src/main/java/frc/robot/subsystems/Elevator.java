@@ -30,9 +30,9 @@ public class Elevator extends SubsystemBase {
     }
 
      //normal up/down for custom hights
-     
+     //18.85
     public void up(){ 
-      if(place.getDistance() < 18.85){
+      if(place.getDistance() < 18){
        m_liftMotor.set(1);
       }
       else{

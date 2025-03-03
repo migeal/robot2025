@@ -42,6 +42,6 @@ public static double Lastsave(int wantedData){
         waldo.printStackTrace();
     }
     
-    return 1;
+    return 0;
 }
 }

@@ -32,7 +32,7 @@ import frc.robot.commands.letGo;
 import frc.robot.commands.PistonTog;
 import frc.robot.commands.push_out;
 import frc.robot.commands.pull_in;
-import frc.robot.commands.rotate_down;
+import frc.robot.commands.Rotate_down;
 import frc.robot.commands.rotate_up;
 import frc.robot.commands.stableizerP_togle;
 
@@ -84,20 +84,22 @@ public class RobotContainer {
   private final letGo m_LetGo = new letGo(m_climb);
   private final PistonTog m_PTog = new PistonTog(m_CP);
   private final rotate_up m_rotate_up = new rotate_up(m_Rotate_rollor);
-  private final rotate_down m_rotate_down = new rotate_down(m_Rotate_rollor);
+  private final Rotate_down m_rotate_down = new Rotate_down(m_Rotate_rollor);
 private final push_out m_push_out =new push_out(m_Rollor);
 private final pull_in m_pull_in = new pull_in(m_Rollor);
 private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
   //buttons
-   private JoystickButton lock = new JoystickButton(m_ButtonBoard, 8);
-   private JoystickButton unlock = new JoystickButton(m_ButtonBoard, 9);
-   private JoystickButton Floor1 = new JoystickButton(m_ButtonBoard, 2);
-   private JoystickButton Floor2 = new JoystickButton(m_ButtonBoard, 3);
-   private JoystickButton Floor3 = new JoystickButton(m_ButtonBoard, 13);
-   private JoystickButton Floor4 = new JoystickButton(m_ButtonBoard, 12);
-   private JoystickButton ManUp = new JoystickButton(m_ButtonBoard, 5);
-   private JoystickButton ManDown = new JoystickButton(m_ButtonBoard, 6);
+   //private JoystickButton lock = new JoystickButton(m_ButtonBoard, 8);
+   //private JoystickButton unlock = new JoystickButton(m_ButtonBoard, 9);
+   //elevator
+   private JoystickButton Floor1 = new JoystickButton(m_ButtonBoard, 8);
+   private JoystickButton Floor2 = new JoystickButton(m_ButtonBoard, 1);
+   private JoystickButton Floor3 = new JoystickButton(m_ButtonBoard, 2);
+   private JoystickButton Floor4 = new JoystickButton(m_ButtonBoard, 13);
+   private JoystickButton ManUp = new JoystickButton(m_ButtonBoard, 12);
+   private JoystickButton ManDown = new JoystickButton(m_ButtonBoard, 3);
    //private JoystickButton Accention = new JoystickButton(m_ButtonBoard, 1);
+   //intake
   private JoystickButton up =new JoystickButton(m_ButtonBoard, 4);
   private JoystickButton down =new JoystickButton(m_ButtonBoard, 7);
   private JoystickButton tiltu =new JoystickButton(m_ButtonBoard, 5);
@@ -198,13 +200,13 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
     m_Elevator.Hight(0);
    }
    if (Floor2.getAsBoolean()==true){
-    m_Elevator.Hight(4);
+    m_Elevator.Hight(3.7);
    }
    if (Floor3.getAsBoolean()==true){
-    m_Elevator.Hight(12);
+    m_Elevator.Hight(4.11);
    }
    if (Floor4.getAsBoolean()==true){
-    m_Elevator.Hight(18.85);
+    m_Elevator.Hight(18);
    }
    // To save values for relitave encoders at the end of a match
    if (DriverStation.isDisabled()){
