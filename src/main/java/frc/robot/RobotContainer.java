@@ -105,7 +105,7 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
   private JoystickButton tiltu =new JoystickButton(m_ButtonBoard, 5);
   private JoystickButton tiltm =new JoystickButton(m_ButtonBoard, 6);
   private JoystickButton tiltd =new JoystickButton(m_ButtonBoard, 9);
-  
+
 
   /** The conta iner for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -130,9 +130,9 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
         // Forward motion controls x speed (forward), sideways motion controls y speed (sideways).
           new RunCommand (  
             () -> m_robotDrive.drive(
-              -MathUtil.applyDeadband(m_Controly.getRightY(), DriveConstants.kDriveDeadband),
-              -MathUtil.applyDeadband(-m_Controly.getRightX(), DriveConstants.kDriveDeadband),
-              -MathUtil.applyDeadband(m_Controly.getLeftX(), DriveConstants.kDriveDeadbandZ),
+              -MathUtil.applyDeadband(m_Controly.getLeftY(), DriveConstants.kDriveDeadband),
+              -MathUtil.applyDeadband(-m_Controly.getLeftX(), DriveConstants.kDriveDeadband),
+              -MathUtil.applyDeadband(m_Controly.getRightX(), DriveConstants.kDriveDeadbandZ),
               DriveConstants.kTeleField), m_robotDrive)
                  
           );
