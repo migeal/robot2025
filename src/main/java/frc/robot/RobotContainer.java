@@ -55,6 +55,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  public static boolean Limit;
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
@@ -165,7 +166,12 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
       
    // };
    m_driverController.y().onTrue(m_stab);
+   if (Limit==false){
    m_driverController.a().onTrue(m_PTog);
+   }
+   else if(m_Controly.getAButtonPressed()==true){
+       m_climb.Reset();
+   }
    m_driverController.rightTrigger().onTrue(m_push_out);
    if(m_driverController.rightTrigger().getAsBoolean()){
     m_driverController.setRumble(GenericHID.RumbleType.kRightRumble, 1);
@@ -187,6 +193,7 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
     ManUp.whileTrue(m_EUp);
     ManDown.whileTrue(m_EDown);
    // Accention.onTrue(m_PTog);
+   if(Limit=false){
    if (tiltu.getAsBoolean()==true){
     m_Rotate_rollor.Rotate(135);
    }
@@ -196,6 +203,12 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
    if (tiltd.getAsBoolean()==true){
     m_Rotate_rollor.Rotate(45);
    } 
+  }
+  else if(tiltd.getAsBoolean()==true){
+    m_Rotate_rollor.Reset();
+  }
+   //call differant hights, if the limit is true then Floor1 is the only one enabled and changed to reset
+   if(Limit=false){
    if (Floor1.getAsBoolean()==true){
     m_Elevator.Hight(0);
    }
@@ -207,6 +220,19 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
    }
    if (Floor4.getAsBoolean()==true){
     m_Elevator.Hight(18);
+   }
+  }
+  else if (Floor1.getAsBoolean()==true){
+     m_Elevator.Reset();}
+
+   if(m_Controly.getBackButtonPressed()==true){
+     //revearsed ideas of true and false
+    if(Limit==true){
+        Limit = false;
+      }
+      else{
+        Limit = true;
+      }
    }
    // To save values for relitave encoders at the end of a match
    if (DriverStation.isDisabled()){
