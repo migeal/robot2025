@@ -32,7 +32,7 @@ import frc.robot.commands.letGo;
 import frc.robot.commands.PistonTog;
 import frc.robot.commands.push_out;
 import frc.robot.commands.pull_in;
-import frc.robot.commands.Rotate_down;
+import frc.robot.commands.rotate_down;
 import frc.robot.commands.rotate_up;
 import frc.robot.commands.stableizerP_togle;
 
@@ -84,7 +84,7 @@ public class RobotContainer {
   private final letGo m_LetGo = new letGo(m_climb);
   private final PistonTog m_PTog = new PistonTog(m_CP);
   private final rotate_up m_rotate_up = new rotate_up(m_Rotate_rollor);
-  private final Rotate_down m_rotate_down = new Rotate_down(m_Rotate_rollor);
+  private final rotate_down m_rotate_down = new rotate_down(m_Rotate_rollor);
 private final push_out m_push_out =new push_out(m_Rollor);
 private final pull_in m_pull_in = new pull_in(m_Rollor);
 private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
@@ -105,6 +105,7 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
   private JoystickButton tiltu =new JoystickButton(m_ButtonBoard, 5);
   private JoystickButton tiltm =new JoystickButton(m_ButtonBoard, 6);
   private JoystickButton tiltd =new JoystickButton(m_ButtonBoard, 9);
+  
 
   /** The conta iner for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -121,7 +122,7 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
             -MathUtil.applyDeadband(m_StickOfHope.getZ(), DriveConstants.kDriveDeadbandZ),
             DriveConstants.kTeleField), m_robotDrive)
                
-        );
+        ); 
       // Configure the trigger bindings
       configureBindings();
       //Configure driving default

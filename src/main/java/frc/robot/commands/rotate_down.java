@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 
    
       
-public class Rotate_down extends Command{
+public class rotate_down extends Command{
     private final Rotate_rollor m_rotate;
-    public Rotate_down(Rotate_rollor Rotate_rollor){
+    public rotate_down(Rotate_rollor Rotate_rollor){
     m_rotate = Rotate_rollor;
     addRequirements(Rotate_rollor);
     }

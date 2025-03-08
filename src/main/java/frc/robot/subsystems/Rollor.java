@@ -17,7 +17,7 @@ private WPI_VictorSPX intake = new WPI_VictorSPX(motorConstants.InmotorL);
 
 //grabing the algee and coral 
 public void grab(){
-    intake.set(0.5);
+    intake.set(0.75);
 }
 //holding algee and coral
 
@@ -26,7 +26,7 @@ public void hold(){
 }
 //relaseing algee 
 public void release(){
-    intake.set(-0.5); 
+    intake.set(-0.75); 
 }
 @Override
    public void periodic() {
