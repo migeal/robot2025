@@ -85,7 +85,7 @@ public final class Constants {
   public static class ControlSystem {
     // Driving motor CAN IDs
     public static final int kLeftFrontDrive = 12;
-    public static final int kLeftBackDrive = 15;
+    public static final int kLeftBackDrive = 17;
     public static final int kRightFrontDrive = 3;
     public static final int kRightBackDrive = 2;
     // Turning motors
@@ -102,11 +102,11 @@ public final class Constants {
 
   public static class motorConstants{
     // motors for subsystems CAN IDs
-    public static final int CmotorL = 14;
+    public static final int CmotorL = 6;
     public static final int CmotorR = 1;
-    public static final int Emotor = 2;
-    public static final int InmotorL= 5;
-    public static final int InmotorR= 10;
+    public static final int Emotor = 20;
+    public static final int WristMotor= 5;
+    public static final int IntakeMotor= 10;
     // AM encoder DIO's
     public static final int ElvateA = 0;
     public static final int ElvateB = 1;
