@@ -58,12 +58,13 @@ public void rotate_down(){
 @Override
    public void periodic() {
      // This method will be called once per scheduler run
+     SmartDashboard.putNumber("wrist motor",TiltR.getDistance());
    }
  
    @Override
    public void simulationPeriodic() {
      // This method will be called once per scheduler run during simulation
-     SmartDashboard.putNumber("wrist motor",TiltR.getDistance());
+    
    }
    public void Rotate(double degree){
     // specifide level finder for Rotate_roller (aka wrist).
