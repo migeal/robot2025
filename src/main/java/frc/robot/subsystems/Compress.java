@@ -16,7 +16,7 @@ public class Compress extends SubsystemBase {
    private Compressor compressfact ;
   
    public Compress() {
-   compressfact = new Compressor(0, PneumaticsModuleType.REVPH);
+   compressfact = new Compressor(1, PneumaticsModuleType.REVPH);
  addChild("CompressFactory",compressfact);
    }
 
