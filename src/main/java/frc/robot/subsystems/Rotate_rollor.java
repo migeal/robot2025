@@ -30,7 +30,7 @@ public class Rotate_rollor extends SubsystemBase {
 
 public void Rotate_up(){
  if(TiltR.getDistance() <37.6){;
- intake_rotate.set(1);
+ intake_rotate.set(-1);
  
 }
 else{
@@ -46,7 +46,7 @@ public void stay(){
 public void rotate_down(){
     
   if(TiltR.getDistance() >0){;
-    intake_rotate.set(-1);
+    intake_rotate.set(1);
     
    }
    else{
@@ -86,10 +86,10 @@ public void rotate_down(){
    }
    //limit break movement
    public void LBRotate_Up(){
-    intake_rotate.set(0.5);
+    intake_rotate.set(-0.5);
    }
    public void LBRotate_Down(){
-    intake_rotate.set(-0.5);
+    intake_rotate.set(0.5);
    }
 
    public void Reset(){
