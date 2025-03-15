@@ -227,7 +227,7 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
     m_Elevator.Hight(18);
    }
   }
-  while(Limit=true){
+  while(Limit==true){
  if (Floor1.getAsBoolean()==true){
      m_Elevator.Reset();}
  }
