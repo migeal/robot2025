@@ -75,8 +75,8 @@ public class RobotContainer {
   private final Rotate_rollor m_Rotate_rollor = new Rotate_rollor();
   private final stableizerP m_Stab = new stableizerP();
   // joystick 
-  private final XboxController m_Controly = new XboxController(0);
-  private final CommandJoystick m_StickOfHope = new CommandJoystick(0);
+ // private final XboxController m_driverController = new XboxController(0);
+  //private final CommandJoystick m_StickOfHope = new CommandJoystick(0);
   private final Joystick m_ButtonBoard = new Joystick(1);
  // private final XboxController m_gamerTime = new XboxController(0);
   //commands
@@ -115,6 +115,7 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
     // Configure the trigger bindings
     configureBindings();
     //Configure driving default
+    /*
     m_robotDrive.setDefaultCommand(
       // Forward motion controls x speed (forward), sideways motion controls y speed (sideways).
         new RunCommand (  
@@ -124,17 +125,17 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
             -MathUtil.applyDeadband(m_StickOfHope.getZ(), DriveConstants.kDriveDeadbandZ),
             DriveConstants.kTeleField), m_robotDrive)
                
-        ); 
+        );
       // Configure the trigger bindings
-      configureBindings();
+      configureBindings();*/
       //Configure driving default
       m_robotDrive.setDefaultCommand(
         // Forward motion controls x speed (forward), sideways motion controls y speed (sideways).
           new RunCommand (  
             () -> m_robotDrive.drive(
-              -MathUtil.applyDeadband(m_Controly.getLeftY(), DriveConstants.kDriveDeadband),
-              -MathUtil.applyDeadband(-m_Controly.getLeftX(), DriveConstants.kDriveDeadband),
-              -MathUtil.applyDeadband(m_Controly.getRightX(), DriveConstants.kDriveDeadbandZ),
+              -MathUtil.applyDeadband(m_driverController.getLeftY(), DriveConstants.kDriveDeadband),
+              -MathUtil.applyDeadband(-m_driverController.getLeftX(), DriveConstants.kDriveDeadband),
+              -MathUtil.applyDeadband(m_driverController.getRightX(), DriveConstants.kDriveDeadbandZ),
               DriveConstants.kTeleField), m_robotDrive)
                  
           );
@@ -171,17 +172,17 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
    if (Limit==false){
    m_driverController.a().onTrue(m_PTog);
    }
-   else if(m_Controly.getAButtonPressed()==true){
+   else if(m_driverController.a().getAsBoolean()==true){
        m_climb.Reset();
    }
-   m_driverController.rightTrigger().onTrue(m_push_out);
+   m_driverController.rightTrigger().whileTrue(m_push_out);
    if(m_driverController.rightTrigger().getAsBoolean()){
     m_driverController.setRumble(GenericHID.RumbleType.kRightRumble, 1);
    }
    else{
     m_driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0);
    }
-   m_driverController.leftTrigger().onTrue(m_pull_in);
+   m_driverController.leftTrigger().whileTrue(m_pull_in);
    if(m_driverController.leftTrigger().getAsBoolean()){
     m_driverController.setRumble(GenericHID.RumbleType.kLeftRumble, 1);
    }
@@ -227,7 +228,7 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
   else if (Floor1.getAsBoolean()==true){
      m_Elevator.Reset();}
 
-   if(m_Controly.getBackButtonPressed()==true){
+   if(m_driverController.back().getAsBoolean()==true){
      //revearsed ideas of true and false
     if(togg==false){
         Limit = false;

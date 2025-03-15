@@ -127,6 +127,7 @@ public class DriveTrain extends SubsystemBase {
         );
       } 
     } */
+   /* 
     boolean useMegaTag2 = true; //set to false to use MegaTag1
     boolean doRejectUpdate = false;
     if(useMegaTag2 == false)
@@ -177,7 +178,7 @@ public class DriveTrain extends SubsystemBase {
             mt2.timestampSeconds);
       }
     }    
-    
+    */
     // Put values to SmartDashboard 
     SmartDashboard.putNumber("Front Left Drive Speed", DriveVelFL());
     SmartDashboard.putNumber("Front Right Drive Speed", DriveVelFR());

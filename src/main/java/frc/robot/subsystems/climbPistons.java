@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class climbPistons extends SubsystemBase{
-    private DoubleSolenoid accendFR = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
-   private DoubleSolenoid accendFL = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
-   private DoubleSolenoid accendBR = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 14, 15);
+    private DoubleSolenoid accendFR = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 1);
+   private DoubleSolenoid accendFL = new DoubleSolenoid(PneumaticsModuleType.REVPH, 2, 3);
+   private DoubleSolenoid accendBR = new DoubleSolenoid(PneumaticsModuleType.REVPH, 14, 15);
   
   
 public climbPistons(){}

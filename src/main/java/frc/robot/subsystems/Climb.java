@@ -26,15 +26,15 @@ import frc.robot.Transport;
 public class Climb extends SubsystemBase {
   private WPI_VictorSPX leftClimb = new WPI_VictorSPX(motorConstants.CmotorL);
    private WPI_VictorSPX rightClimb = new WPI_VictorSPX(motorConstants.CmotorR);
-  public static Encoder LeftE = new Encoder(motorConstants.LCA,motorConstants.LCB);
-  public static Encoder RightE = new Encoder(motorConstants.RCA,motorConstants.RCB,true);
+  public static Encoder LeftE = new Encoder(motorConstants.LCA,motorConstants.LCB, true);
+  public static Encoder RightE = new Encoder(motorConstants.RCA,motorConstants.RCB);
   double dia = 5*2;
   double dis = (dia*Math.PI/1024)/256;
   
    //Counter RightTilt = new Counter(3);
    //Counter LeftTilt = new Counter(4);
   public Climb(){
-    rightClimb.setInverted(true);
+    leftClimb.setInverted(true);
     RightE.setDistancePerPulse(dis);
     LeftE.setDistancePerPulse(dis);
   }
