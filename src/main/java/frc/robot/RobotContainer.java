@@ -196,39 +196,42 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
     ManUp.whileTrue(m_EUp);
     ManDown.whileTrue(m_EDown);
    // Accention.onTrue(m_PTog);
-   if(Limit==false){
+   while(Limit==false){
    if (tiltu.getAsBoolean()==true){
     m_Rotate_rollor.Rotate(135);
    }
-   if (tiltm.getAsBoolean()==true){
+   else if (tiltm.getAsBoolean()==true){
     m_Rotate_rollor.Rotate(90);
    }
-   if (tiltd.getAsBoolean()==true){
+   else if (tiltd.getAsBoolean()==true){
     m_Rotate_rollor.Rotate(45);
    } 
   }
-  else if(tiltd.getAsBoolean()==true){
+  while(Limit==true){
+   if(tiltd.getAsBoolean()==true){
     m_Rotate_rollor.Reset();
   }
+  }
    //call differant hights, if the limit is true then Floor1 is the only one enabled and changed to reset
-   if(Limit==false){
+   while(Limit==false){
    if (Floor1.getAsBoolean()==true){
     m_Elevator.Hight(0);
    }
-   if (Floor2.getAsBoolean()==true){
+   else if (Floor2.getAsBoolean()==true){
     m_Elevator.Hight(3.7);
    }
-   if (Floor3.getAsBoolean()==true){
+   else if  (Floor3.getAsBoolean()==true){
     m_Elevator.Hight(4.11);
    }
-   if (Floor4.getAsBoolean()==true){
+   else if  (Floor4.getAsBoolean()==true){
     m_Elevator.Hight(18);
    }
   }
-  else if (Floor1.getAsBoolean()==true){
+  while(Limit=true){
+ if (Floor1.getAsBoolean()==true){
      m_Elevator.Reset();}
-
-   if(m_driverController.back().getAsBoolean()==true){
+ }
+   while(m_driverController.back().getAsBoolean()==true){
      //revearsed ideas of true and false
     if(togg==false){
         if(Limit == false){
@@ -239,13 +242,14 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
         }
         togg=true;
       }
-      if(m_driverController.back().getAsBoolean()==false){
+    }
+      while(m_driverController.back().getAsBoolean()==false){
         togg=false;
       }
       
        
       
-   }
+   
    // To save values for relitave encoders at the end of a match
    if (DriverStation.isDisabled()){
        Transport.Go();

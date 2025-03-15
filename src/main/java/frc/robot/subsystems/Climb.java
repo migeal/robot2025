@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -105,6 +106,8 @@ public class Climb extends SubsystemBase {
      // leftClimb.set(0);
      // rightClimb.set(0);
     //}
+    SmartDashboard.putNumber("Left motor",LeftE.getDistance());
+    SmartDashboard.putNumber("Right motor",RightE.getDistance());
   }
 
   @Override

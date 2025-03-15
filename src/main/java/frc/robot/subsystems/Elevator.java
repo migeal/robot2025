@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.motorcontrol.Victor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -101,6 +103,7 @@ public class Elevator extends SubsystemBase {
    @Override
    public void periodic() {
      // This method will be called once per scheduler run
+     SmartDashboard.putNumber("Elevator motor",place.getDistance());
    }
  
    @Override
