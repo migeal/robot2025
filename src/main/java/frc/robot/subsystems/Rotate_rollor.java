@@ -45,13 +45,13 @@ public void stay(){
 }
 public void rotate_down(){
     
-  if(TiltR.getDistance() >0){;
+  //if(TiltR.getDistance() <0){;
     intake_rotate.set(1);
     
-   }
-   else{
-     stay();
-   }
+   //}
+   //else{
+    // stay();
+   //}
    
 }
 @Override

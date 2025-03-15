@@ -54,13 +54,13 @@ public class Climb extends SubsystemBase {
   }
   //turn up speed for the final product
   public void LetGo(){
-    if ((LeftE.getDistance()>0)&&(RightE.getDistance()>0)){
+    //if ((LeftE.getDistance()>0)&&(RightE.getDistance()>0)){
     leftClimb.set(-1);
     rightClimb.set(-1);
-    }
-  else{
-    stop();
-  }
+    //}
+  //else{
+    //stop();
+  //}
   }
   // Limit break control
  public void LBclimb(){
