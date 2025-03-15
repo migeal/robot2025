@@ -19,7 +19,7 @@ public class rotate_up extends Command{
       // Called every time the scheduler runs while the command is scheduled.
       @Override
       public void execute() {
-        if(RobotContainer.Limit=false){
+        if(RobotContainer.Limit==false){
         m_rotate.Rotate_up();
         }
         else{m_rotate.LBRotate_Up();}

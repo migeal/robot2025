@@ -231,8 +231,16 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
    if(m_driverController.back().getAsBoolean()==true){
      //revearsed ideas of true and false
     if(togg==false){
-        Limit = false;
+        if(Limit == false){
+          Limit=true;
+        }
+        else{
+          Limit = false;
+        }
         togg=true;
+      }
+      if(m_driverController.back().getAsBoolean()==false){
+        togg=false;
       }
       
        
