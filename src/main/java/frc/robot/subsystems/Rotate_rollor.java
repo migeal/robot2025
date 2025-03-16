@@ -59,8 +59,8 @@ public void rotate_down(){
 @Override
    public void periodic() {
      // This method will be called once per scheduler run
-    // SmartDashboard.putNumber("Wrist motor",TiltR.getDistance());
-     //SmartDashboard.putBoolean("Calibration mode", RobotContainer.Limit);
+     SmartDashboard.putNumber("Wrist motor",TiltR.getDistance());
+     SmartDashboard.putBoolean("Calibration mode", RobotContainer.Limit);
    }
  
    @Override
