@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class stableizerP extends SubsystemBase{
-    private DoubleSolenoid fourth = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 6, 7);
+    private DoubleSolenoid fourth = new DoubleSolenoid(2,PneumaticsModuleType.CTREPCM, 6, 7);
    
   
   
