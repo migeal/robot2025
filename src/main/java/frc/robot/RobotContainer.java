@@ -208,7 +208,7 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
     m_Rotate_rollor.Rotate(45);
    } 
   }
-  if(Limit==true){
+  else if(Limit==true){
    if(tiltd.getAsBoolean()==true){
     m_Rotate_rollor.Reset();
   }
@@ -228,7 +228,7 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
     m_Elevator.Hight(18);
    }
   }
-  if(Limit==true){
+  else if(Limit==true){
  if (Floor1.getAsBoolean()==true){
      m_Elevator.Reset();}
  }
@@ -244,7 +244,7 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
         togg=true;
       }
     }
-      if(m_driverController.back().getAsBoolean()==false){
+     else if(m_driverController.back().getAsBoolean()==false){
         togg=false;
       }
       
