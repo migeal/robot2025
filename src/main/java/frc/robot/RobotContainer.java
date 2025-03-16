@@ -197,7 +197,7 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
     ManUp.whileTrue(m_EUp);
     ManDown.whileTrue(m_EDown);
    // Accention.onTrue(m_PTog);
-   while(Limit==false){
+   if(Limit==false){
    if (tiltu.getAsBoolean()==true){
     m_Rotate_rollor.Rotate(135);
    }
@@ -208,13 +208,13 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
     m_Rotate_rollor.Rotate(45);
    } 
   }
-  while(Limit==true){
+  if(Limit==true){
    if(tiltd.getAsBoolean()==true){
     m_Rotate_rollor.Reset();
   }
   }
    //call differant hights, if the limit is true then Floor1 is the only one enabled and changed to reset
-   while(Limit==false){
+   if(Limit==false){
    if (Floor1.getAsBoolean()==true){
     m_Elevator.Hight(0);
    }
@@ -228,11 +228,11 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
     m_Elevator.Hight(18);
    }
   }
-  while(Limit==true){
+  if(Limit==true){
  if (Floor1.getAsBoolean()==true){
      m_Elevator.Reset();}
  }
-   while(m_driverController.back().getAsBoolean()==true){
+   if(m_driverController.back().getAsBoolean()==true){
      //revearsed ideas of true and false
     if(togg==false){
         if(Limit == false){
@@ -244,7 +244,7 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
         togg=true;
       }
     }
-      while(m_driverController.back().getAsBoolean()==false){
+      if(m_driverController.back().getAsBoolean()==false){
         togg=false;
       }
       
