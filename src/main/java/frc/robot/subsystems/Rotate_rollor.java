@@ -14,6 +14,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.Encoder; 
+import frc.robot.RobotContainer;
 
 public class Rotate_rollor extends SubsystemBase {
   //Counter move= new Counter(1);
@@ -58,7 +59,8 @@ public void rotate_down(){
 @Override
    public void periodic() {
      // This method will be called once per scheduler run
-     SmartDashboard.putNumber("wrist motor",TiltR.getDistance());
+     SmartDashboard.putNumber("Wrist motor",TiltR.getDistance());
+     SmartDashboard.putBoolean("Calibration mode", RobotContainer.Limit);
    }
  
    @Override

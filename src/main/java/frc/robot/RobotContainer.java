@@ -55,8 +55,8 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  public static boolean Limit;
-  private static boolean togg;
+  public static Boolean Limit;
+  private static Boolean togg;
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
@@ -111,7 +111,8 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
 
   /** The conta iner for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
- 
+    Limit= false;
+    togg = false;
     // Configure the trigger bindings
     configureBindings();
     //Configure driving default
