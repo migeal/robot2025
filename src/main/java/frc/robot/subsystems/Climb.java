@@ -106,8 +106,8 @@ public class Climb extends SubsystemBase {
      // leftClimb.set(0);
      // rightClimb.set(0);
     //}
-    SmartDashboard.putNumber("Left motor",LeftE.getDistance());
-    SmartDashboard.putNumber("Right motor",RightE.getDistance());
+    //SmartDashboard.putNumber("Left motor",LeftE.getDistance());
+    //SmartDashboard.putNumber("Right motor",RightE.getDistance());
   }
 
   @Override
