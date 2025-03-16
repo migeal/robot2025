@@ -103,7 +103,7 @@ public class Elevator extends SubsystemBase {
    @Override
    public void periodic() {
      // This method will be called once per scheduler run
-     SmartDashboard.putNumber("Elevator motor",place.getDistance());
+     //SmartDashboard.putNumber("Elevator motor",place.getDistance());
    }
  
    @Override
