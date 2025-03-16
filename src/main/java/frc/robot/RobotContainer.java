@@ -251,9 +251,7 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
       
    
    // To save values for relitave encoders at the end of a match
-   if (DriverStation.isDisabled()){
-       Transport.Go();
-   } 
+   
   }
 
   /**
