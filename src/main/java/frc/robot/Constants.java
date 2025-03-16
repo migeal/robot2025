@@ -118,6 +118,9 @@ public final class Constants {
     public static final int RCB = 7;
   }
 
+  public static class PneumaticsConstants{
+    public static final int k_pcmCANid = 2;
+  }
   // Vendor Dep URLS
   // nav-x: "https://storage.googleapis.com/frc2025/NavX2025.json"
   // phoenix5: "https://maven.ctr-electronics.com/release/com/ctre/phoenix/Phoenix5-frc2025-latest.json"

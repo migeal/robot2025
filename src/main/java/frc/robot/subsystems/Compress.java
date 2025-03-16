@@ -8,5 +8,5 @@ public class Compress extends SubsystemBase {
 
     public Compress(){}
 
-    private final Compressor supply = new Compressor(PneumaticsModuleType.CTREPCM);
+    //private final Compressor supply = new Compressor(PneumaticsModuleType.CTREPCM);
 }

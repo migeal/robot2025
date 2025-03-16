@@ -20,11 +20,12 @@ public class Rotate_rollor extends SubsystemBase {
   //Counter move= new Counter(1);
  public static Encoder TiltR= new Encoder(motorConstants.WA, motorConstants.WB);
  double dia = 16*2;
- double dis = (dia*Math.PI/1024)/343;
+ double dis = (dia*Math.PI)/343;
  
   public Rotate_rollor(){
  // move.setSemiPeriodMode(true);
     TiltR.setDistancePerPulse(dis);
+    TiltR.reset();
  } 
     private WPI_VictorSPX intake_rotate = new WPI_VictorSPX(motorConstants.WristMotor);
   // double value = move.getPeriod();
