@@ -131,7 +131,7 @@ public class DriveTrain extends SubsystemBase {
     //boolean useMegaTag2 = true; //set to false to use MegaTag1
     boolean doRejectUpdate = false;
     //if(useMegaTag2 == false)
-    
+        System.out.println("Limelight code run");
       LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
       if(mt1 != null){
         System.out.println("mt1 not null");
