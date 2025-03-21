@@ -38,6 +38,9 @@ public class Climb extends SubsystemBase {
     leftClimb.setInverted(true);
     RightE.setDistancePerPulse(1);
     LeftE.setDistancePerPulse(1);
+    LeftE.setReverseDirection(true);
+    LeftE.reset();
+    RightE.reset();
   }
   
    

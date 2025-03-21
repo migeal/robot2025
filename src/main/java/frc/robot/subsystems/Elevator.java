@@ -29,6 +29,7 @@ public class Elevator extends SubsystemBase {
     public Elevator(){
       //placement.setSemiPeriodMode(true);
       place.setDistancePerPulse(dis);
+      place.reset();
     }
 
      //normal up/down for custom hights

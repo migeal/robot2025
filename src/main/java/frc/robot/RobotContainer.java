@@ -6,6 +6,8 @@ package frc.robot;
 
 import javax.print.attribute.standard.MediaSize.NA;
 
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -263,8 +265,11 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+ 
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    public Command getAutonomousCommand() {
+    return new PathPlannerAuto("forward");
+  } 
+
   }
-}
+
