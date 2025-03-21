@@ -35,7 +35,7 @@ public class Elevator extends SubsystemBase {
      //18.85
     public void up(){ 
       if(place.getDistance() < 18){
-       m_liftMotor.set(0.5);
+       m_liftMotor.set(0.7);
       }
       else{
         stop();
@@ -43,7 +43,7 @@ public class Elevator extends SubsystemBase {
     }
     public void down(){
       //if(place.getDistance() > 0){
-    m_liftMotor.set(-0.5);
+    m_liftMotor.set(-0.7);
     //}
     //else{
      // stop();
