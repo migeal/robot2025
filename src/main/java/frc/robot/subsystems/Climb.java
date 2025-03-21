@@ -48,13 +48,13 @@ public class Climb extends SubsystemBase {
    // private Encoder CLE = new Encoder(0,1,false,Encoder.RelativeEncoder.k2X);
   
   public void climb(){
-    if((RightE.getDistance()<11.78)&&(LeftE.getDistance()<11.78)){
+    //if((RightE.getDistance()<11.78)&&(LeftE.getDistance()<11.78)){
    leftClimb.set(0.5);
    rightClimb.set(0.5);
-  }
-  else{
-    stop();
-  }
+  //}
+ // else{
+  //  stop();
+ // }
   }
   //turn up speed for the final product
   public void LetGo(){
