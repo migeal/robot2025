@@ -49,6 +49,18 @@ public class Elevator extends SubsystemBase {
      // stop();
    // }
     }
+    public void DownH(){
+      Hight(0);
+    }
+    public void LowH(){
+      Hight(3.7);
+    }
+    public void medH(){
+      Hight(4.11);
+    }
+    public void HieH(){
+     Hight(13);
+    }
     // set elevator to called location, plan to call it directly from RobotContainer
    public void Hight(double level){
     //double start =  Flor.getPosition();

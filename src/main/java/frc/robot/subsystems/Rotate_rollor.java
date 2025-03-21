@@ -20,7 +20,7 @@ public class Rotate_rollor extends SubsystemBase {
   //Counter move= new Counter(1);
  public static Encoder TiltR= new Encoder(motorConstants.WA, motorConstants.WB);
  double dia = 16*2;
- double dis = (dia*Math.PI)/343;
+ double dis = (dia*Math.PI);//343;
  
   public Rotate_rollor(){
  // move.setSemiPeriodMode(true);
@@ -68,6 +68,15 @@ public void rotate_down(){
    public void simulationPeriodic() {
      // This method will be called once per scheduler run during simulation
     
+   }
+   public void lowR (){
+    Rotate(45);
+   }
+   public void midR(){
+    Rotate(90);
+   }
+   public void hieR(){
+    Rotate(135);
    }
    public void Rotate(double degree){
     // specifide level finder for Rotate_roller (aka wrist).
