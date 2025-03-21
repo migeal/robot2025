@@ -36,8 +36,8 @@ public class Climb extends SubsystemBase {
    //Counter LeftTilt = new Counter(4);
   public Climb(){
     leftClimb.setInverted(true);
-    RightE.setDistancePerPulse(dis);
-    LeftE.setDistancePerPulse(dis);
+    RightE.setDistancePerPulse(1);
+    LeftE.setDistancePerPulse(1);
   }
   
    
@@ -46,8 +46,8 @@ public class Climb extends SubsystemBase {
   
   public void climb(){
     if((RightE.getDistance()<11.78)&&(LeftE.getDistance()<11.78)){
-   leftClimb.set(1);
-   rightClimb.set(1);
+   leftClimb.set(0.5);
+   rightClimb.set(0.5);
   }
   else{
     stop();
@@ -56,8 +56,8 @@ public class Climb extends SubsystemBase {
   //turn up speed for the final product
   public void LetGo(){
     //if ((LeftE.getDistance()>0)&&(RightE.getDistance()>0)){
-    leftClimb.set(-1);
-    rightClimb.set(-1);
+    leftClimb.set(-0.5);
+    rightClimb.set(-0.5);
     //}
   //else{
     //stop();
