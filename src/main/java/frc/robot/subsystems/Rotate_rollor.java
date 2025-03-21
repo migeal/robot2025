@@ -32,13 +32,13 @@ public class Rotate_rollor extends SubsystemBase {
 
 
 public void Rotate_up(){
- if(TiltR.getDistance() <37.6){;
+ //if(TiltR.getDistance() <37.6){;
  intake_rotate.set(-0.5);
  
-}
-else{
-  stay();
-}
+//}
+//else{
+  //stay();
+//}
 }
 
 
