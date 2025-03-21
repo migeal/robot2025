@@ -138,7 +138,7 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
           new RunCommand (  
             () -> m_robotDrive.drive(
               -MathUtil.applyDeadband(-m_driverController.getLeftY(), DriveConstants.kDriveDeadband),
-              -MathUtil.applyDeadband(m_driverController.getLeftX(), DriveConstants.kDriveDeadband),
+              -MathUtil.applyDeadband(-m_driverController.getLeftX(), DriveConstants.kDriveDeadband),
               -MathUtil.applyDeadband(m_driverController.getRightX(), DriveConstants.kDriveDeadbandZ),
               DriveConstants.kTeleField), m_robotDrive)
                  
