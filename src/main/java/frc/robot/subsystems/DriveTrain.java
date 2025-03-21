@@ -127,13 +127,14 @@ public class DriveTrain extends SubsystemBase {
         );
       } 
     } */
-   /* 
-    boolean useMegaTag2 = true; //set to false to use MegaTag1
+   
+    //boolean useMegaTag2 = true; //set to false to use MegaTag1
     boolean doRejectUpdate = false;
-    if(useMegaTag2 == false)
-    {
+    //if(useMegaTag2 == false)
+    
       LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
-      
+      if(mt1 != null){
+        System.out.println("mt1 not null");
       if(mt1.tagCount == 1 && mt1.rawFiducials.length == 1)
       {
         if(mt1.rawFiducials[0].ambiguity > .7)
@@ -147,17 +148,20 @@ public class DriveTrain extends SubsystemBase {
       }
       if(mt1.tagCount == 0)
       {
+        System.out.println("mt1 == 0");
         doRejectUpdate = true;
       }
 
       if(!doRejectUpdate)
       {
+        System.out.println("Update successful");
         m_odometry.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,9999999));
         m_odometry.addVisionMeasurement(
             mt1.pose,
             mt1.timestampSeconds);
       }
     }
+   /* 
     else if (useMegaTag2 == true)
     {
       LimelightHelpers.SetRobotOrientation("limelight", m_odometry.getEstimatedPosition().getRotation().getDegrees(), 0, 0, 0, 0, 0);
