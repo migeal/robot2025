@@ -20,7 +20,7 @@ public class Rotate_rollor extends SubsystemBase {
   //Counter move= new Counter(1);
  public static Encoder TiltR= new Encoder(motorConstants.WA, motorConstants.WB);
  double dia = 16*2;
- double dis = (dia*Math.PI)/343;
+ double dis = 1;//(dia*Math.PI)/343;
  
   public Rotate_rollor(){
  // move.setSemiPeriodMode(true);
@@ -33,7 +33,7 @@ public class Rotate_rollor extends SubsystemBase {
 
 public void Rotate_up(){
  if(TiltR.getDistance() <37.6){;
- intake_rotate.set(-1);
+ intake_rotate.set(-0.5);
  
 }
 else{
@@ -49,7 +49,7 @@ public void stay(){
 public void rotate_down(){
     
   //if(TiltR.getDistance() <0){;
-    intake_rotate.set(1);
+    intake_rotate.set(0.5);
     
    //}
    //else{
