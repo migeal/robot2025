@@ -35,7 +35,7 @@ public class Elevator extends SubsystemBase {
      //18.85
     public void up(){ 
       if(place.getDistance() < 18){
-       m_liftMotor.set(0.5);
+       m_liftMotor.set(0.7);
       }
       else{
         stop();
@@ -43,11 +43,23 @@ public class Elevator extends SubsystemBase {
     }
     public void down(){
       //if(place.getDistance() > 0){
-    m_liftMotor.set(-0.5);
+    m_liftMotor.set(-0.7);
     //}
     //else{
      // stop();
    // }
+    }
+    public void DownH(){
+      Hight(0);
+    }
+    public void LowH(){
+      Hight(3.7);
+    }
+    public void medH(){
+      Hight(4.11);
+    }
+    public void HieH(){
+     Hight(13);
     }
     // set elevator to called location, plan to call it directly from RobotContainer
    public void Hight(double level){

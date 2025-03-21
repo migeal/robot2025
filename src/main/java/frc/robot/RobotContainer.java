@@ -46,6 +46,7 @@ import frc.robot.subsystems.Rollor;
 import frc.robot.subsystems.stableizerP;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.motorConstants;
+import frc.robot.subsystems.calibration;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
@@ -57,7 +58,7 @@ import edu.wpi.first.wpilibj2.command.StartEndCommand;
  */
 public class RobotContainer {
   public static Boolean Limit;
-  private static Boolean togg;
+  //private static Boolean togg;
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
@@ -75,6 +76,7 @@ public class RobotContainer {
   private final Rollor m_Rollor = new Rollor();
   private final Rotate_rollor m_Rotate_rollor = new Rotate_rollor();
   private final stableizerP m_Stab = new stableizerP();
+  private final calibration m_Cal = new calibration();
   // joystick 
  // private final XboxController m_driverController = new XboxController(0);
   //private final CommandJoystick m_StickOfHope = new CommandJoystick(0);
@@ -113,7 +115,7 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
   /** The conta iner for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     Limit= false;
-    togg = false;
+   // togg = false;
     // Configure the trigger bindings
     configureBindings();
     //Configure driving default
@@ -199,10 +201,12 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
     ManDown.whileTrue(m_EDown);
    // Accention.onTrue(m_PTog);
    if(Limit==false){
-   if (tiltu.getAsBoolean()==true){
-    m_Rotate_rollor.Rotate(135);
-   }
-   else if (tiltm.getAsBoolean()==true){
+   tiltu.onTrue(new StartEndCommand(m_Rotate_rollor::hieR,m_Rotate_rollor::stay, m_Rotate_rollor));
+
+   tiltm.onTrue(new StartEndCommand(m_Rotate_rollor::midR,m_Rotate_rollor::stay, m_Rotate_rollor));
+
+   tiltd.onTrue(new StartEndCommand(m_Rotate_rollor::lowR,m_Rotate_rollor::stay, m_Rotate_rollor));
+   /* if (tiltm.getAsBoolean()==true){
     m_Rotate_rollor.Rotate(90);
    }
    else if (tiltd.getAsBoolean()==true){
@@ -213,27 +217,25 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
    if(tiltd.getAsBoolean()==true){
     m_Rotate_rollor.Reset();
   }
+    */
   }
    //call differant hights, if the limit is true then Floor1 is the only one enabled and changed to reset
    if(Limit==false){
-   if (Floor1.getAsBoolean()==true){
-    m_Elevator.Hight(0);
-   }
-   else if (Floor2.getAsBoolean()==true){
-    m_Elevator.Hight(3.7);
-   }
-   else if  (Floor3.getAsBoolean()==true){
-    m_Elevator.Hight(4.11);
-   }
-   else if  (Floor4.getAsBoolean()==true){
-    m_Elevator.Hight(18);
-   }
+
+   Floor1.onTrue(new StartEndCommand(m_Elevator::DownH, m_Elevator::stop, m_Elevator));
+
+   Floor2.onTrue(new StartEndCommand(m_Elevator::LowH, m_Elevator::stop, m_Elevator));
+
+   Floor3.onTrue(new StartEndCommand(m_Elevator::medH, m_Elevator::stop, m_Elevator));
+   
+   Floor4.onTrue(new StartEndCommand(m_Elevator::HieH, m_Elevator::stop, m_Elevator));
+   
   }
-  else if(Limit==true){
- if (Floor1.getAsBoolean()==true){
-     m_Elevator.Reset();}
+   if(Limit==true){
+    Floor1.onTrue(new StartEndCommand(m_Elevator::Reset, m_Elevator::stop, m_Elevator));
  }
-   if(m_driverController.back().getAsBoolean()==true){
+ m_driverController.back().toggleOnTrue(new StartEndCommand(m_Cal::activate, m_Cal::normal, m_Cal));
+   /*if(m_driverController.back().getAsBoolean()==true){
      //revearsed ideas of true and false
     if(togg==false){
         if(Limit == false){
@@ -248,7 +250,7 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
      else if(m_driverController.back().getAsBoolean()==false){
         togg=false;
       }
-      
+      */
        
       
    
