@@ -67,8 +67,8 @@ public final class Constants {
       new Translation2d(-WheelXdist, WheelYdist),
       new Translation2d(-WheelXdist, -WheelYdist));*/
 
-    // encoder angluar offset in Degrees
-    public static final double kFrontLeftModuleAngularOffset = -0.005371;//*360;//Math.PI*2; 
+    // encoder angluar offset 
+    public static final double kFrontLeftModuleAngularOffset = 0.295654;//*360;//Math.PI*2; 
     public static final double kFrontRightModuleAngularOffset = -.463135;//*360;//Math.PI*2;
     public static final double kBackLeftModuleAngularOffset = -0.054932;//*360;//Math.PI*2;
     public static final double kBackRightModuleAngularOffset = 0.187988;//*360;//Math.PI*2;
