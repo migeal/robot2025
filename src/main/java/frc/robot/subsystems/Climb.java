@@ -51,6 +51,8 @@ public class Climb extends SubsystemBase {
     //if((RightE.getDistance()<11.78)&&(LeftE.getDistance()<11.78)){
    leftClimb.set(0.5);
    rightClimb.set(0.5);
+   LeftE.setReverseDirection(true);
+   RightE.setReverseDirection(false);
   //}
  // else{
   //  stop();
@@ -61,6 +63,8 @@ public class Climb extends SubsystemBase {
     //if ((LeftE.getDistance()>0)&&(RightE.getDistance()>0)){
     leftClimb.set(-0.5);
     rightClimb.set(-0.5);
+    LeftE.setReverseDirection(false);
+    RightE.setReverseDirection(true);
     //}
   //else{
     //stop();
@@ -70,11 +74,15 @@ public class Climb extends SubsystemBase {
  public void LBclimb(){
   leftClimb.set(0.5);
   rightClimb.set(0.5);
+  LeftE.setReverseDirection(true);
+   RightE.setReverseDirection(false);
  }
 
   public void LBLetGo(){
     leftClimb.set(-0.5);
     rightClimb.set(-0.5);
+    LeftE.setReverseDirection(false);
+    RightE.setReverseDirection(true);
   }
   public void Reset(){
     double goalL= Transport.Lastsave(2); 
