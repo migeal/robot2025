@@ -82,7 +82,7 @@ public class RobotContainer {
   // joystick 
  // private final XboxController m_driverController = new XboxController(0);
   //private final CommandJoystick m_StickOfHope = new CommandJoystick(0);
-  private final Joystick m_ButtonBoard = new Joystick(1);
+  private final Joystick m_StickofBoard = new Joystick(1);
  // private final XboxController m_gamerTime = new XboxController(0);
   //commands
   private final EUp m_EUp = new EUp(m_Elevator);
@@ -99,19 +99,19 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
    //private JoystickButton lock = new JoystickButton(m_ButtonBoard, 8);
    //private JoystickButton unlock = new JoystickButton(m_ButtonBoard, 9);
    //elevator
-   private JoystickButton Floor1 = new JoystickButton(m_ButtonBoard, 8);
-   private JoystickButton Floor2 = new JoystickButton(m_ButtonBoard, 1);
-   private JoystickButton Floor3 = new JoystickButton(m_ButtonBoard, 2);
-   private JoystickButton Floor4 = new JoystickButton(m_ButtonBoard, 13);
-   private JoystickButton ManUp = new JoystickButton(m_ButtonBoard, 12);
-   private JoystickButton ManDown = new JoystickButton(m_ButtonBoard, 3);
+   private JoystickButton Floor1 = new JoystickButton(m_StickofBoard, 12);
+   private JoystickButton Floor2 = new JoystickButton(m_StickofBoard, 11);
+   private JoystickButton Floor3 = new JoystickButton(m_StickofBoard, 9);
+   private JoystickButton Floor4 = new JoystickButton(m_StickofBoard, 7);
+   private JoystickButton ManUp = new JoystickButton(m_StickofBoard, 8);
+   private JoystickButton ManDown = new JoystickButton(m_StickofBoard, 10);
    //private JoystickButton Accention = new JoystickButton(m_ButtonBoard, 1);
    //intake
-  private JoystickButton up =new JoystickButton(m_ButtonBoard, 4);
-  private JoystickButton down =new JoystickButton(m_ButtonBoard, 7);
-  private JoystickButton tiltu =new JoystickButton(m_ButtonBoard, 5);
-  private JoystickButton tiltm =new JoystickButton(m_ButtonBoard, 6);
-  private JoystickButton tiltd =new JoystickButton(m_ButtonBoard, 9);
+  private JoystickButton up =new JoystickButton(m_StickofBoard, 1);
+  private JoystickButton down =new JoystickButton(m_StickofBoard, 2);
+  private JoystickButton tiltu =new JoystickButton(m_StickofBoard, 6);
+  private JoystickButton tiltm =new JoystickButton(m_StickofBoard, 3);
+  private JoystickButton tiltd =new JoystickButton(m_StickofBoard, 4);
 
 
   /** The conta iner for the robot. Contains subsystems, OI devices, and commands. */
