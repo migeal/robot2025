@@ -37,7 +37,7 @@ public class DriveAuto extends Command {
   @Override
   public void execute() {
     if (m_time.get() < 3) {
-      m_subsystem.drive(-1, 0, 0, isScheduled());
+      m_subsystem.drive(1, 0, 0, isScheduled());
     }
   }
 

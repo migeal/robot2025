@@ -6,7 +6,9 @@ package frc.robot;
 
 import javax.print.attribute.standard.MediaSize.NA;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -18,6 +20,7 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -268,7 +271,20 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
  
     // An example command will be run in autonomous
     public Command getAutonomousCommand() {
-      return Autos.exampleAuto(m_robotDrive);
+      try{
+        // Load the path you want to follow using its name in the GUI
+        PathPlannerPath path = PathPlannerPath.fromPathFile("Example Path");
+
+        // Create a path following command using AutoBuilder. This will also trigger event markers.
+        return AutoBuilder.followPath(path);
+    } catch (Exception e) {
+        DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
+        // return Autos.exampleAuto(m_robotDrive);
+        return Commands.run(()-> m_robotDrive.drive(1, 0, 0, false))
+        .withTimeout(3)
+        .andThen(()-> m_robotDrive.drive(0, 0, 0, false));
+    }
+      
       //return new PathPlannerAuto("leave");
     } 
 
