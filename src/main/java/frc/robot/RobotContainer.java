@@ -268,8 +268,9 @@ private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
  
     // An example command will be run in autonomous
     public Command getAutonomousCommand() {
-    return new PathPlannerAuto("leave");
-  } 
+      return Autos.exampleAuto(m_robotDrive);
+      //return new PathPlannerAuto("leave");
+    } 
 
   }
 
