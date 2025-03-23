@@ -35,7 +35,7 @@ public class Climb extends SubsystemBase {
    //Counter RightTilt = new Counter(3);
    //Counter LeftTilt = new Counter(4);
   public Climb(){
-    leftClimb.setInverted(true);
+    rightClimb.setInverted(true);
     RightE.setDistancePerPulse(1);
     LeftE.setDistancePerPulse(1);
     LeftE.setReverseDirection(true);
@@ -51,8 +51,8 @@ public class Climb extends SubsystemBase {
     //if((RightE.getDistance()<11.78)&&(LeftE.getDistance()<11.78)){
    leftClimb.set(0.5);
    rightClimb.set(0.5);
-   LeftE.setReverseDirection(true);
-   RightE.setReverseDirection(false);
+   LeftE.setReverseDirection(false);
+   RightE.setReverseDirection(true);
   //}
  // else{
   //  stop();
@@ -63,8 +63,8 @@ public class Climb extends SubsystemBase {
     //if ((LeftE.getDistance()>0)&&(RightE.getDistance()>0)){
     leftClimb.set(-0.5);
     rightClimb.set(-0.5);
-    LeftE.setReverseDirection(false);
-    RightE.setReverseDirection(true);
+    LeftE.setReverseDirection(true);
+    RightE.setReverseDirection(false);
     //}
   //else{
     //stop();
@@ -72,6 +72,7 @@ public class Climb extends SubsystemBase {
   }
   // Limit break control
  public void LBclimb(){
+  System.out.println("other use");
   leftClimb.set(0.5);
   rightClimb.set(0.5);
   LeftE.setReverseDirection(true);

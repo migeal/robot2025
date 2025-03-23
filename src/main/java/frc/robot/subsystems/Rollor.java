@@ -20,7 +20,10 @@ public void grab(){
 //holding algee and coral
 
 public void hold(){
-    intake.set(0);
+    intake.set(0.1);
+}
+public void stop(){
+  intake.set(0);
 }
 //relaseing algee 
 public void release(){
