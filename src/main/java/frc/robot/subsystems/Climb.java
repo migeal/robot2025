@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
@@ -17,8 +18,6 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.spark.SparkBase;
-
-
 import com.revrobotics.spark.SparkClosedLoopController;
 
 import frc.robot.Constants.motorConstants;
@@ -27,8 +26,8 @@ import frc.robot.Transport;
 public class Climb extends SubsystemBase {
   private WPI_VictorSPX leftClimb = new WPI_VictorSPX(motorConstants.CmotorL);
    private WPI_VictorSPX rightClimb = new WPI_VictorSPX(motorConstants.CmotorR);
-  public static Encoder LeftE = new Encoder(motorConstants.LCA,motorConstants.LCB, true);
-  public static Encoder RightE = new Encoder(motorConstants.RCA,motorConstants.RCB);
+  public static Encoder LeftE = new Encoder(motorConstants.LCA,motorConstants.LCB, true,CounterBase.EncodingType.k4X);
+  public static Encoder RightE = new Encoder(motorConstants.RCA,motorConstants.RCB,false,CounterBase.EncodingType.k4X);
   double dia = 5*2;
   double dis = (dia*Math.PI/1024)/256;
   
@@ -39,6 +38,8 @@ public class Climb extends SubsystemBase {
     RightE.setDistancePerPulse(1);
     LeftE.setDistancePerPulse(1);
     LeftE.setReverseDirection(true);
+    LeftE.setMinRate(dia);
+    RightE.setMinRate(dia);
     LeftE.reset();
     RightE.reset();
   }

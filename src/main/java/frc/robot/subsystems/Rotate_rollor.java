@@ -14,17 +14,19 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.Encoder; 
+import edu.wpi.first.wpilibj.CounterBase; 
 import frc.robot.RobotContainer;
 
 public class Rotate_rollor extends SubsystemBase {
   //Counter move= new Counter(1);
- public static Encoder TiltR= new Encoder(motorConstants.WA, motorConstants.WB);
+ public static Encoder TiltR= new Encoder(motorConstants.WA, motorConstants.WB,false,CounterBase.EncodingType.k4X);
  double dia = 16*2;
- double dis = 1;
+ double dis = (dia*Math.PI/1024);
  
   public Rotate_rollor(){
  // move.setSemiPeriodMode(true);
     TiltR.setDistancePerPulse(dis);
+    TiltR.setMinRate(dia);
     TiltR.reset();
  } 
     private WPI_VictorSPX intake_rotate = new WPI_VictorSPX(motorConstants.WristMotor);
