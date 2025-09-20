@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.LimelightHelpers;
 import frc.robot.Constants.ControlSystem;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,16 +15,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.ADIS16448_IMU;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 
-//import com.kauailabs.navx.frc.AHRS;
-//import edu.wpi.first.wpilibj.SPI;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Timer;
 
 
 public class DriveTrain extends SubsystemBase {
+  
   /** Creates a new Drive Train Subsystem. */
 
   private final Translation2d m_frontLeftLocation = new Translation2d(DriveConstants.WheelXdist, DriveConstants.WheelYdist);
@@ -35,29 +40,33 @@ public class DriveTrain extends SubsystemBase {
     ControlSystem.kLeftFrontDrive,
     ControlSystem.kLeftFrontTurn, 
     ControlSystem.kLFturn, 
-    DriveConstants.kFrontLeftChassisAngularOffset);
+    DriveConstants.kFrontLeftModuleAngularOffset);
+    //DriveConstants.kFrontLeftChassisAngularOffset);
 
   private final SwerveModule m_frontRight = new SwerveModule(
     ControlSystem.kRightFrontDrive,
     ControlSystem.kRightFrontTurn, 
     ControlSystem.kRFturn,
-    DriveConstants.kFrontRightChassisAngularOffset);
+    DriveConstants.kFrontRightModuleAngularOffset);
+    //DriveConstants.kFrontRightChassisAngularOffset);
 
   private final SwerveModule m_backLeft = new SwerveModule(
     ControlSystem.kLeftBackDrive,
     ControlSystem.kLeftBackTurn, 
     ControlSystem.kLBturn,
-    DriveConstants.kBackLeftChassisAngularOffset);
+    DriveConstants.kBackLeftModuleAngularOffset);
+    //DriveConstants.kBackLeftChassisAngularOffset);
 
   private final SwerveModule m_backRight = new SwerveModule(
     ControlSystem.kRightBackDrive,
     ControlSystem.kRightBackTurn, 
     ControlSystem.kRBturn,
-    DriveConstants.kBackRightChassisAngularOffset);
+    DriveConstants.kBackRightModuleAngularOffset);
+    //DriveConstants.kBackRightChassisAngularOffset);
 
 
-  private final ADIS16448_IMU m_imu = new ADIS16448_IMU();
-  //private final AHRS m_imu = new AHRS(SPI.Port.kMXP);
+  //private final ADIS16448_IMU m_imu = new ADIS16448_IMU();
+  private final AHRS m_imu = new AHRS(SPI.Port.kMXP);
   
     /***********************************************************************
      * navX-MXP: - Communication via RoboRIO MXP (SPI, I2C) and USB. - See
@@ -79,8 +88,8 @@ public class DriveTrain extends SubsystemBase {
 
     
         
-  private final SwerveDriveOdometry m_odometry =
-    new SwerveDriveOdometry(
+  private final SwerveDrivePoseEstimator m_odometry =
+    new SwerveDrivePoseEstimator(
       m_kinematics,
       new Rotation2d(m_imu.getAngle()),
       new SwerveModulePosition[] {
@@ -88,13 +97,17 @@ public class DriveTrain extends SubsystemBase {
         m_frontRight.getPosition(),
         m_backLeft.getPosition(),
         m_backRight.getPosition()
-      });
+      },
+      new Pose2d()
+      );
 
   public DriveTrain() {}
   
 
   @Override
   public void periodic() {
+
+   // LimelightHelpers.LimelightResults results = LimelightHelpers.getLatestResults("limelight");
     // update odometry
     m_odometry.update(
         Rotation2d.fromDegrees(m_imu.getAngle()),
@@ -104,7 +117,73 @@ public class DriveTrain extends SubsystemBase {
             m_backLeft.getPosition(),
             m_backRight.getPosition()
         });
+    
+   /*  LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+    if (limelightMeasurement != null){
+      if (limelightMeasurement.tagCount >= 2) {
+        m_odometry.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
+        m_odometry.addVisionMeasurement(
+          limelightMeasurement.pose,
+          limelightMeasurement.timestampSeconds
+        );
+      } 
+    } */
+   
+    //boolean useMegaTag2 = true; //set to false to use MegaTag1
+    boolean doRejectUpdate = false;
+    //if(useMegaTag2 == false)
+        //System.out.println("Limelight code run");
+      LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+      if(mt1 != null){
+        //System.out.println("mt1 not null");
+      if(mt1.tagCount == 1 && mt1.rawFiducials.length == 1)
+      {
+        if(mt1.rawFiducials[0].ambiguity > .7)
+        {
+          doRejectUpdate = true;
+        }
+        if(mt1.rawFiducials[0].distToCamera > 3)
+        {
+          doRejectUpdate = true;
+        }
+      }
+      if(mt1.tagCount == 0)
+      {
+        //System.out.println("mt1 == 0");
+        doRejectUpdate = true;
+      }
 
+      if(!doRejectUpdate)
+      {
+        //System.out.println("Update successful");
+        m_odometry.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,9999999));
+        m_odometry.addVisionMeasurement(
+            mt1.pose,
+            mt1.timestampSeconds);
+      }
+    }
+   /* 
+    else if (useMegaTag2 == true)
+    {
+      LimelightHelpers.SetRobotOrientation("limelight", m_odometry.getEstimatedPosition().getRotation().getDegrees(), 0, 0, 0, 0, 0);
+      LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
+      if(Math.abs(m_imu.getRate()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
+      {
+        doRejectUpdate = true;
+      }
+      if(mt2.tagCount == 0)
+      {
+        doRejectUpdate = true;
+      }
+      if(!doRejectUpdate)
+      {
+        m_odometry.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
+        m_odometry.addVisionMeasurement(
+            mt2.pose,
+            mt2.timestampSeconds);
+      }
+    }    
+    */
     // Put values to SmartDashboard 
     SmartDashboard.putNumber("Front Left Drive Speed", DriveVelFL());
     SmartDashboard.putNumber("Front Right Drive Speed", DriveVelFR());
@@ -125,6 +204,12 @@ public class DriveTrain extends SubsystemBase {
      SmartDashboard.putNumber("FR Wheel Angle", wheelAngleFR());
      SmartDashboard.putNumber("BL Wheel Angle", wheelAngleBL());
      SmartDashboard.putNumber("BR Wheel Angle", wheelAngleBR());
+      
+     //Display Wheel orientations
+     SmartDashboard.putNumber("FL NEO Wheel Angle", wheelAngleNEOFL());
+     SmartDashboard.putNumber("FR NEO Wheel Angle", wheelAngleNEOFR());
+     SmartDashboard.putNumber("BL NEO Wheel Angle", wheelAngleNEOBL());
+     SmartDashboard.putNumber("BR NEO Wheel Angle", wheelAngleNEOBR());
   }
 
   public final double getOdometryAngle() {
@@ -163,13 +248,17 @@ public class DriveTrain extends SubsystemBase {
         fieldRelative
             ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered, Rotation2d.fromDegrees(m_imu.getAngle()))
             : new ChassisSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered));
+    
     SwerveDriveKinematics.desaturateWheelSpeeds(
         swerveModuleStates, DriveConstants.kMaxSpeed);
+    
     m_frontLeft.setDesiredState(swerveModuleStates[0]);
     m_frontRight.setDesiredState(swerveModuleStates[1]);
     m_backLeft.setDesiredState(swerveModuleStates[2]);
-    m_backRight.setDesiredState(swerveModuleStates[3]);   
-    //System.out.printf("Module state 0 %f", swerveModuleStates[0].angle.getRadians());
+    m_backRight.setDesiredState(swerveModuleStates[3]); 
+
+    //System.out.printf("Module state 0 output %f", m_frontLeft.getPosition().angle.getDegrees());
+    //System.out.printf("Module state 0 calc%f \n", swerveModuleStates[0].angle.getDegrees());
   }
     
   public void resetEncoders() {
@@ -239,6 +328,24 @@ public class DriveTrain extends SubsystemBase {
     return angle;
   }
 
+  // Calculate wheel angles
+  public double wheelAngleNEOFL() {
+    double angle = m_frontLeft.getTurnAngle();
+    return angle;
+  }
+  public double wheelAngleNEOFR() {
+    double angle = m_frontRight.getTurnAngle();
+    return angle;
+  }
+  public double wheelAngleNEOBL() {
+    double angle = m_backLeft.getTurnAngle();
+    return angle;
+  }
+  public double wheelAngleNEOBR() {
+    double angle = m_backRight.getTurnAngle();
+    return angle;
+  }
+
   public double Distance() {
     var Distance = m_backLeft.distance();
     return Distance;
@@ -263,4 +370,5 @@ public class DriveTrain extends SubsystemBase {
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
+  
 }

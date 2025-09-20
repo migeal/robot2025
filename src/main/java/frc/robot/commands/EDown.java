@@ -6,12 +6,13 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.Elevator;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 
 /** An example command that uses an example subsystem. */
 public class EDown extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Elevator m_elevator;
-
+  
   /**
    * Creates a new ExampleCommand.
    *
@@ -30,7 +31,12 @@ public class EDown extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(RobotContainer.Limit==false){
     m_elevator.down();
+    }
+    else{
+      m_elevator.LBdown();
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -42,6 +48,7 @@ public class EDown extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    
     return false;
   }
 }

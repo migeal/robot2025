@@ -6,6 +6,13 @@ package frc.robot;
 
 import javax.print.attribute.standard.MediaSize.NA;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
+
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.OperatorConstants;
@@ -13,11 +20,14 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.Transport;
+
 
 //commands
 import frc.robot.commands.EUp;
@@ -29,7 +39,8 @@ import frc.robot.commands.push_out;
 import frc.robot.commands.pull_in;
 import frc.robot.commands.rotate_down;
 import frc.robot.commands.rotate_up;
-
+import frc.robot.commands.stableizerP_togle;
+import frc.robot.commands.DriveAuto;
 
 //subsystems
 import frc.robot.subsystems.DriveTrain;
@@ -38,11 +49,13 @@ import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.climbPistons;
 import frc.robot.subsystems.Rotate_rollor;
 import frc.robot.subsystems.Rollor;
-
+import frc.robot.subsystems.stableizerP;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.motorConstants;
+import frc.robot.subsystems.calibration;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -50,6 +63,8 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  public static Boolean Limit;
+  //private static Boolean togg;
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
@@ -66,11 +81,13 @@ public class RobotContainer {
   private final climbPistons m_CP = new climbPistons();
   private final Rollor m_Rollor = new Rollor();
   private final Rotate_rollor m_Rotate_rollor = new Rotate_rollor();
+  private final stableizerP m_Stab = new stableizerP();
+  private final calibration m_Cal = new calibration();
   // joystick 
-  private final XboxController m_Controly = new XboxController(0);
-  private final CommandJoystick m_StickOfHope = new CommandJoystick(0);
-  private final Joystick m_ButtonBoard = new Joystick(1);
-  private final XboxController m_gamerTime = new XboxController(0);
+ // private final XboxController m_driverController = new XboxController(0);
+  //private final CommandJoystick m_StickOfHope = new CommandJoystick(0);
+  private final Joystick m_StickofBoard = new Joystick(1);
+ // private final XboxController m_gamerTime = new XboxController(0);
   //commands
   private final EUp m_EUp = new EUp(m_Elevator);
   private final EDown m_EDown = new EDown(m_Elevator);
@@ -81,37 +98,63 @@ public class RobotContainer {
   private final rotate_down m_rotate_down = new rotate_down(m_Rotate_rollor);
 private final push_out m_push_out =new push_out(m_Rollor);
 private final pull_in m_pull_in = new pull_in(m_Rollor);
+private final stableizerP_togle m_stab = new stableizerP_togle(m_Stab);
   //buttons
-   private JoystickButton lock = new JoystickButton(m_ButtonBoard, 8);
-   private JoystickButton unlock = new JoystickButton(m_ButtonBoard, 9);
-   private JoystickButton Floor1 = new JoystickButton(m_ButtonBoard, 2);
-   private JoystickButton Floor2 = new JoystickButton(m_ButtonBoard, 3);
-   private JoystickButton Floor3 = new JoystickButton(m_ButtonBoard, 13);
-   private JoystickButton Floor4 = new JoystickButton(m_ButtonBoard, 12);
-   private JoystickButton ManUp = new JoystickButton(m_ButtonBoard, 5);
-   private JoystickButton ManDown = new JoystickButton(m_ButtonBoard, 6);
-   private JoystickButton Accention = new JoystickButton(m_ButtonBoard, 1);
-  private JoystickButton up =new JoystickButton(m_ButtonBoard, 4);
-  private JoystickButton down =new JoystickButton(m_ButtonBoard, 7);
+   //private JoystickButton lock = new JoystickButton(m_ButtonBoard, 8);
+   //private JoystickButton unlock = new JoystickButton(m_ButtonBoard, 9);
+   //elevator
+   private JoystickButton Floor1 = new JoystickButton(m_StickofBoard, 12);
+   private JoystickButton Floor2 = new JoystickButton(m_StickofBoard, 11);
+   private JoystickButton Floor3 = new JoystickButton(m_StickofBoard, 9);
+   private JoystickButton Floor4 = new JoystickButton(m_StickofBoard, 7);
+   private JoystickButton ManUp = new JoystickButton(m_StickofBoard, 8);
+   private JoystickButton ManDown = new JoystickButton(m_StickofBoard, 10);
+   //private JoystickButton Accention = new JoystickButton(m_ButtonBoard, 1);
+   //intake
+  private JoystickButton up =new JoystickButton(m_StickofBoard, 1);
+  private JoystickButton down =new JoystickButton(m_StickofBoard, 2);
+  private JoystickButton tiltu =new JoystickButton(m_StickofBoard, 6);
+  private JoystickButton tiltm =new JoystickButton(m_StickofBoard, 3);
+  private JoystickButton tiltd =new JoystickButton(m_StickofBoard, 4);
+
 
   /** The conta iner for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
- 
+    Limit= false;
+   // togg = false;
     // Configure the trigger bindings
     configureBindings();
     //Configure driving default
+    /*
     m_robotDrive.setDefaultCommand(
       // Forward motion controls x speed (forward), sideways motion controls y speed (sideways).
         new RunCommand (  
-          () -> m_robotDrive.drive( 
-          m_StickOfHope.getX(),
-          m_StickOfHope.getY(), 
-          m_StickOfHope.getZ(),
-          DriveConstants.kTeleField),m_robotDrive)
+          () -> m_robotDrive.drive(
+            -MathUtil.applyDeadband(m_StickOfHope.getY(), DriveConstants.kDriveDeadband),
+            -MathUtil.applyDeadband(-m_StickOfHope.getX(), DriveConstants.kDriveDeadband),
+            -MathUtil.applyDeadband(m_StickOfHope.getZ(), DriveConstants.kDriveDeadbandZ),
+            DriveConstants.kTeleField), m_robotDrive)
                
         );
-   
+      // Configure the trigger bindings
+      configureBindings();*/
+      //Configure driving default
+      m_robotDrive.setDefaultCommand(
+        // Forward motion controls x speed (forward), sideways motion controls y speed (sideways).
+          new RunCommand (  
+            () -> m_robotDrive.drive(
+              -MathUtil.applyDeadband(-m_driverController.getLeftY(), DriveConstants.kDriveDeadband),
+              -MathUtil.applyDeadband(-m_driverController.getLeftX(), DriveConstants.kDriveDeadband),
+              -MathUtil.applyDeadband(m_driverController.getRightX(), DriveConstants.kDriveDeadbandZ),
+              DriveConstants.kTeleField), m_robotDrive)
+                 
+          );
   }
+  
+ 
+ 
+   
+  
   
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -129,31 +172,96 @@ private final pull_in m_pull_in = new pull_in(m_Rollor);
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-   double right_Axis = m_Controly.getRightTriggerAxis();
-
-    if(right_Axis>0.5){
+    //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+   //double right_Axis = m_Controly.getRightTriggerAxis();
+   
+    //if(right_Axis>0.5){
       
-    };
+   // };
+   m_driverController.y().toggleOnTrue(new StartEndCommand(m_Stab::out, m_Stab::in, m_Stab));
+   if (Limit==false){
+    m_driverController.a().toggleOnTrue(new StartEndCommand(m_CP::Accend, m_CP::Accend, m_CP));
+   }
+   else if(m_driverController.a().getAsBoolean()==true){
+       m_climb.Reset();
+   }
+   m_driverController.rightTrigger().whileTrue(m_push_out);
+   if(m_driverController.rightTrigger().getAsBoolean()){
+    m_driverController.setRumble(GenericHID.RumbleType.kRightRumble, 1);
+   }
+   else{
+    m_driverController.setRumble(GenericHID.RumbleType.kRightRumble, 0);
+   }
+   m_driverController.leftTrigger().whileTrue(m_pull_in);
+   if(m_driverController.leftTrigger().getAsBoolean()){
+    m_driverController.setRumble(GenericHID.RumbleType.kLeftRumble, 1);
+   }
+   else{
+    m_driverController.setRumble(GenericHID.RumbleType.kLeftRumble, 0);
+   }
    up.whileTrue(m_rotate_up);
    down.whileTrue(m_rotate_down);
-    lock.whileTrue( m_Clamp);
-    unlock.whileTrue(m_LetGo);
+    m_driverController.x().whileTrue( m_Clamp);
+    m_driverController.b().whileTrue(m_LetGo);
     ManUp.whileTrue(m_EUp);
     ManDown.whileTrue(m_EDown);
-    Accention.onTrue(m_PTog);
-   if (Floor1.getAsBoolean()==true){
-    m_Elevator.Hight(2);
+   // Accention.onTrue(m_PTog);
+   if(Limit==false){
+   tiltu.onTrue(new StartEndCommand(m_Rotate_rollor::hieR,m_Rotate_rollor::stay, m_Rotate_rollor));
+
+   tiltm.onTrue(new StartEndCommand(m_Rotate_rollor::midR,m_Rotate_rollor::stay, m_Rotate_rollor));
+
+   tiltd.onTrue(new StartEndCommand(m_Rotate_rollor::lowR,m_Rotate_rollor::stay, m_Rotate_rollor));
+   /* if (tiltm.getAsBoolean()==true){
+    m_Rotate_rollor.Rotate(90);
    }
-   if (Floor2.getAsBoolean()==true){
-    m_Elevator.Hight(4);
-   }
-   if (Floor3.getAsBoolean()==true){
-    m_Elevator.Hight(6);
-   }
-   if (Floor4.getAsBoolean()==true){
-    m_Elevator.Hight(8);
-   }
+   else if (tiltd.getAsBoolean()==true){
+    m_Rotate_rollor.Rotate(45);
+   } 
+  }
+  else if(Limit==true){
+   if(tiltd.getAsBoolean()==true){
+    m_Rotate_rollor.Reset();
+  }
+    */
+  }
+   //call differant hights, if the limit is true then Floor1 is the only one enabled and changed to reset
+   if(Limit==false){
+
+   Floor1.onTrue(new StartEndCommand(m_Elevator::DownH, m_Elevator::stop, m_Elevator));
+
+   Floor2.onTrue(new StartEndCommand(m_Elevator::LowH, m_Elevator::stop, m_Elevator));
+
+   Floor3.onTrue(new StartEndCommand(m_Elevator::medH, m_Elevator::stop, m_Elevator));
+
+   Floor4.onTrue(new StartEndCommand(m_Elevator::HieH, m_Elevator::stop, m_Elevator));
+   
+  }
+   if(Limit==true){
+    Floor1.onTrue(new StartEndCommand(m_Elevator::Reset, m_Elevator::stop, m_Elevator));
+ }
+ m_driverController.back().toggleOnTrue(new StartEndCommand(m_Cal::activate, m_Cal::normal, m_Cal));
+   /*if(m_driverController.back().getAsBoolean()==true){
+     //revearsed ideas of true and false
+    if(togg==false){
+        if(Limit == false){
+          Limit=true;
+        }
+        else{
+          Limit = false;
+        }
+        togg=true;
+      }
+    }
+     else if(m_driverController.back().getAsBoolean()==false){
+        togg=false;
+      }
+      */
+       
+      
+   
+   // To save values for relitave encoders at the end of a match
+   
   }
 
   /**
@@ -161,8 +269,27 @@ private final pull_in m_pull_in = new pull_in(m_Rollor);
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+ 
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    public Command getAutonomousCommand() {
+         //System.out.println("auto running");
+        return new DriveAuto(m_robotDrive);
+        /*return Commands.run(()-> m_robotDrive.drive(-15, 0, 0, false))
+        .withTimeout(15)
+        .finallyDo(()-> m_robotDrive.drive(0, 0, 0, false));*/
+    //   try{
+    //     // Load the path you want to follow using its name in the GUI
+    //     PathPlannerPath path = PathPlannerPath.fromPathFile("Example Path");
+
+    //     // Create a path following command using AutoBuilder. This will also trigger event markers.
+    //     return AutoBuilder.followPath(path);
+    // } catch (Exception e) {
+    //     DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
+    //     // return Autos.exampleAuto(m_robotDrive);
+        
+      
+      //return new PathPlannerAuto("leave");
+    } 
+
   }
-}
+

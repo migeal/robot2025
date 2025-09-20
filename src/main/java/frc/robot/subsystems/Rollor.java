@@ -5,26 +5,29 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.motorConstants;
 
-import edu.wpi.first.wpilibj.motorcontrol.Victor;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.RelativeEncoder;
 
 public class Rollor extends SubsystemBase {
 public Rollor(){}
-private Victor intake = new Victor(motorConstants.InmotorL);
+private WPI_VictorSPX intake = new WPI_VictorSPX(motorConstants.IntakeMotor);
 
 
 //grabing the algee and coral 
 public void grab(){
-    intake.set(0.5);
+    intake.set(0.75);
 }
 //holding algee and coral
 
 public void hold(){
-    intake.set(0);
+    intake.set(0.1);
+}
+public void stop(){
+  intake.set(0);
 }
 //relaseing algee 
 public void release(){
-    intake.set(-0.5); 
+    intake.set(-0.75); 
 }
 @Override
    public void periodic() {

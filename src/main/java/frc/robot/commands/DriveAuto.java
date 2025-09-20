@@ -4,52 +4,52 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.RobotContainer;
-
 
 /** An example command that uses an example subsystem. */
-public class EUp extends Command {
+public class DriveAuto extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Elevator m_elevator;
-
+  private final DriveTrain m_subsystem;
+ private final Timer m_time;
   /**
    * Creates a new ExampleCommand.
    *
-   * @param Elevator The subsystem used by this command.
+   * @param subsystem The subsystem used by this command.
    */
-  public EUp(Elevator Elevator) {
-    m_elevator = Elevator;
+  public DriveAuto(DriveTrain subsystem) {
+    m_subsystem = subsystem;
+    m_time = new Timer();
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Elevator);
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_time.reset();
+    m_time.start();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.Limit==false){
-    m_elevator.up();
-  }
-  else{
-    m_elevator.LBup();
-  }
+    if (m_time.get() < 5) {
+      m_subsystem.drive(-2, 0, 0, isScheduled());
+    } else if (m_time.get() > 5) {
+      m_subsystem.drive(0, 0, 0, false);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_elevator.stop();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-   
     return false;
   }
 }

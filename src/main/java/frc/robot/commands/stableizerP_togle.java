@@ -4,52 +4,42 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.stableizerP;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.RobotContainer;
-
 
 /** An example command that uses an example subsystem. */
-public class EUp extends Command {
+public class stableizerP_togle extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Elevator m_elevator;
+  private final stableizerP m_stableizerP;
 
   /**
    * Creates a new ExampleCommand.
    *
-   * @param Elevator The subsystem used by this command.
+   * @param climbPistons The subsystem used by this command.
    */
-  public EUp(Elevator Elevator) {
-    m_elevator = Elevator;
+  public stableizerP_togle(stableizerP rPiston) {
+    m_stableizerP = rPiston;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Elevator);
+    addRequirements(rPiston);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_stableizerP.OutnIn();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    if(RobotContainer.Limit==false){
-    m_elevator.up();
-  }
-  else{
-    m_elevator.LBup();
-  }
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_elevator.stop();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-   
     return false;
   }
 }
