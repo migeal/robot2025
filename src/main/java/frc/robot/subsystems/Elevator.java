@@ -13,6 +13,7 @@ import com.revrobotics.spark.SparkClosedLoopController;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.Transport;
 import frc.robot.Constants.motorConstants;
@@ -21,7 +22,7 @@ import frc.robot.Constants.motorConstants;
 public class Elevator extends SubsystemBase {
    private final WPI_VictorSPX m_liftMotor = new WPI_VictorSPX(motorConstants.Emotor);
    //Counter placement = new Counter(1);
-  public static Encoder place = new Encoder(motorConstants.ElvateA,motorConstants.ElvateB);
+  public static Encoder place = new Encoder(motorConstants.ElvateA,motorConstants.ElvateB, false,CounterBase.EncodingType.k4X);
     double dia = 0.75;
     double dis = (dia*Math.PI/1024)/72;
     //10 times to top
@@ -29,6 +30,7 @@ public class Elevator extends SubsystemBase {
     public Elevator(){
       //placement.setSemiPeriodMode(true);
       place.setDistancePerPulse(dis);
+      place.setMinRate(dia);
       place.reset();
     }
 
@@ -94,6 +96,7 @@ public class Elevator extends SubsystemBase {
    
     
    }
+   // use to reset elevter back to ground level
    public void Reset(){
     double goal = Transport.Lastsave(1);
     double progress = goal+place.getDistance();
@@ -117,6 +120,7 @@ public class Elevator extends SubsystemBase {
    public void periodic() {
      // This method will be called once per scheduler run
      SmartDashboard.putNumber("Elevator motor",place.getDistance());
+     SmartDashboard.putNumber("Ele encoder rate",place.getRate());
    }
  
    @Override
